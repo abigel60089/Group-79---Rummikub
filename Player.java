@@ -16,13 +16,14 @@ public class Player
     public String getName() {
         return name;
     }
-    
+
     public void setHand(LinkedChain<Tile> h) {
         hand = h;
     }
-    
+
+    //return end game
     public void endTurn(Game g){
-        //later
+        
     }
     
     public void addTile(Tile t){
