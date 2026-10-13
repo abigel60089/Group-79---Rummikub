@@ -1,5 +1,10 @@
 public class Player
 {
+    //~ Fields ................................................................
+    
+    
+
+    //~ Constructors ..........................................................
     protected String name;
     protected LinkedChain<Tile> hand;
     protected boolean hasInitialMeld;
@@ -34,7 +39,18 @@ public class Player
         //later
     }
     
-    public void sortHand(){
+    public void sortHand() {
+        int size = hand.getLength();
+        Tile[] tiles = new Tile[size];
+        for (int i = 0; i < size; i++) {
+            tiles[i] = hand.remove(1);
+        }
+        Arrays.sort(tiles, Comparator
+                .comparing(Tile::getColor)
+                .thenComparingInt(Tile::getNumber));
+        for (Tile t : tiles) {
+            hand.add(t);
+        }
     }
     
     public int getHandValue(){
