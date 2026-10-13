@@ -1,10 +1,8 @@
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class Player
 {
-    //~ Fields ................................................................
-    
-    
-
-    //~ Constructors ..........................................................
     protected String name;
     protected LinkedChain<Tile> hand;
     protected boolean hasInitialMeld;
@@ -14,12 +12,16 @@ public class Player
             throw new IllegalArgumentException("name is empty");
         }
         this.name = name.trim(); //this is so that any space after / before the given Name is truncated
-        this.hand = new LinkedChain<>(); //hand
-        this.hasInitialMeld = false; //no valid sets yet!
+        hand = new LinkedChain<>(); //empty hand
+        hasInitialMeld = false; //no valid sets yet!
     }
 
     public String getName() {
         return name;
+    }
+    
+    public LinkedChain<Tile> getHand(){
+        return hand;
     }
 
     public void setHand(LinkedChain<Tile> h) {
@@ -28,7 +30,7 @@ public class Player
 
     //return end game
     public void endTurn(Game g){
-        
+        //later
     }
     
     public void addTile(Tile t){
@@ -40,14 +42,12 @@ public class Player
     }
     
     public void sortHand() {
-        int size = hand.getLength();
+        int size = hand.size();
         Tile[] tiles = new Tile[size];
         for (int i = 0; i < size; i++) {
-            tiles[i] = hand.remove(1);
+            tiles[i] = hand.remove();
         }
-        Arrays.sort(tiles, Comparator
-                .comparing(Tile::getColor)
-                .thenComparingInt(Tile::getNumber));
+        Arrays.sort(tiles, Comparator.comparing(Tile::getColor).thenComparingInt(Tile::getNumber));
         for (Tile t : tiles) {
             hand.add(t);
         }
@@ -63,7 +63,7 @@ public class Player
     }
     
     public void displayHand(){
-
+        //later
     }
 
 }
