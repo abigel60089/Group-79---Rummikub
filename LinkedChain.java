@@ -28,6 +28,7 @@
  *
  * @param <T> the type of entries stored in the chain
  */
+
 public class LinkedChain<T>
 {
     private Node<T> firstNode;   // reference to the first node, or null
