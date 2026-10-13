@@ -1,13 +1,9 @@
 public class Player
 {
-    //~ Fields ................................................................
-    
-    
-
-    //~ Constructors ..........................................................
     protected String name;
     protected LinkedChain<Tile> hand;
-    protected boolean hasInitialMeld; 
+    protected boolean hasInitialMeld;
+    
     public Player(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("name is empty");
@@ -17,30 +13,36 @@ public class Player
         this.hasInitialMeld = false; //no valid sets yet!
     }
 
-    
-    //~Public  Methods ........................................................
     public String getName() {
         return name;
     }
     
-    public void endTurn(Game g){
-
+    public void setHand(LinkedChain<Tile> h) {
+        hand = h;
     }
     
-    public void drawTile(Tile t){
-
+    public void endTurn(Game g){
+        //later
+    }
+    
+    public void addTile(Tile t){
+        hand.add(t);
     }
     
     public boolean playSet(Set s){
-
+        //later
     }
     
     public void sortHand(){
-
     }
     
-    public void getHandValue(){
-
+    public int getHandValue(){
+        Tile[] tiles = hand.toArray(new Tile[hand.size()]);
+        int sum = 0;
+        for(Tile tile : tiles) {
+            sum += tile.getNumber();
+        }
+        return sum;
     }
     
     public void displayHand(){
