@@ -21,11 +21,28 @@ public class Tile
         return color;
     }
     
-    public boolean equals(Tile t) {
-        //
+    public boolean equals(Object other) {
+        if (other == this)
+        {
+            return true;
+        }
+
+        if (other == null)
+        {
+            return false;
+        }
+
+        if (other.getClass() == this.getClass())
+        {
+            return number == ((Tile)other).getNumber() &&
+                color.equals(((Tile)other).color);
+        }
+
+        return false;
     }
     
     public String toString() {
-        //
+        String tile = color + number;
+        return tile;
     }
 }
