@@ -10,7 +10,7 @@ public class Group
     @Override
     public boolean isValid()
     {
-        if ((tiles.size() != 3))
+        if ((tiles.size() != 3) || (tiles.size() != 4))
         {
             return false;
         }
@@ -66,7 +66,7 @@ public class Group
 
     }
 
-
+    @Override
     public boolean addTile(Tile t)
     {
         if (!canAdd(t))
