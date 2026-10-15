@@ -1,6 +1,7 @@
 public class Run extends Set
 {
     private final LinkedChain<Tile> tiles;
+    //private static final int Joker = 14;
 
     public Run()
     {
@@ -8,6 +9,25 @@ public class Run extends Set
         tiles = new LinkedChain<>();
     }
 
+   /* private boolean isJoker(Tile t)
+    {
+        return t.getNumber() == Joker;
+    }
+
+    private int firstRealTile()
+    {
+        for (int i=0; i < tiles.size(); i++)
+        {
+            if (!isJoker(tiles.get(i)))
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+*/
     @Override
     public boolean isValid()
     {
@@ -15,6 +35,9 @@ public class Run extends Set
         {
             return false;
         }
+
+
+        // start edit from here
         for (int i = 0; i < tiles.size(); i++)
         {
             Tile previous = tiles.get(i-1);
@@ -39,6 +62,25 @@ public class Run extends Set
             return true;
         }
 
+        Tile firstTile = tiles.get(0);
+        Tile lastTile = tiles.get(tiles.size() - 1);
+
+        if(!t.getColor().equals(firstTile.getColor()) || !t.getColor().equals(lastTile.getColor()))
+        {
+            return false;
+        }
+
+        return t.getNumber() == firstTile.getNumber() - 1 || t.getNumber() == lastTile.getNumber() + 1;
+
+    }
+
+    public boolean addTile(Tile t)
+    {
+        if(!canAdd(t))
+        {
+            return false;
+        }
+        
         if(!tiles.isEmpty() && t.getNumber() < tiles.get(0).getNumber())
         {
             tiles.add(t);
