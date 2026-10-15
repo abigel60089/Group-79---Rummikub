@@ -1,11 +1,16 @@
-public class Group
-    extends Set
+public class Group extends Set
 {
+    private static final int JOKER = 14;
+
     public Group()
     {
         super();
     }
 
+    private boolean isJoker(Tile t)
+    {
+        return t.getNumber() == JOKER;
+    }
 
     @Override
     public boolean isValid()
@@ -15,21 +20,33 @@ public class Group
             return false;
         }
 
+        int realTiles = 0;
         for (int i = 0; i < tiles.size(); i++)
         {
+            Tile t1 = tiles.get(i);
+            if (isJoker(t1))
+            {
+                continue;
+            }
+            realTiles++;
+
             for (int j = i + 1; j < tiles.size(); j++)
             {
-                Tile t1 = tiles.get(i);
                 Tile t2 = tiles.get(j);
-                if (t1.getNumber() != t2.getNumber()
-                    || t1.getColor().equals(t2.getColor()))
+                if (isJoker(t2))
+                {
+                    continue;
+                }
+
+                if (t1.getNumber() != t2.getNumber() || t1.getColor().equals(t2.getColor()))
                 {
                     return false;
                 }
             }
+            
         }
 
-        return true;
+        return realTiles > 0;
     }
 
     @Override
@@ -50,12 +67,21 @@ public class Group
             return false;
         }
 
+        if (isJoker(t))
+        {
+            return true;
+        }
+
         for (int i = 0; i < tiles.size(); i++)
         {
             Tile currentTile = tiles.get(i);
 
-            if (currentTile.getNumber() != t.getNumber()
-                || currentTile.getColor().equals(t.getColor()))
+            if (isJoker(currentTile))
+            {
+                continue;
+            }
+
+            if (currentTile.getNumber() != t.getNumber() || currentTile.getColor().equals(t.getColor()))
             {
                 return false;
             }
@@ -73,6 +99,7 @@ public class Group
         {
             return false;
         }
+
         tiles.add(t);
         return true;
     }

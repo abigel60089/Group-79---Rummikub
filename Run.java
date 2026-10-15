@@ -1,13 +1,28 @@
-public class Run
-    extends Set
+public class Run extends Set
 {
-    // private static final int Joker = 14;
+    private static final int JOKER = 14;
 
     public Run()
     {
         super();
     }
 
+    private boolean isJoker(Tile t)
+    {
+        return t.getNumber() == JOKER;
+    }
+
+    private int firstRealTile()
+    {
+        for (int i = 0; i < tiles.size(); i++)
+        {
+            if (!isJoker(tiles.get(i)))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     @Override
     public boolean isValid()
@@ -16,16 +31,30 @@ public class Run
         {
             return false;
         }
-        for (int i = 1; i < tiles.size(); i++)
+
+        int t1 = firstRealTile();
+        if (t1 == -1)
         {
-            Tile previous = tiles.get(i - 1);
-            Tile current = tiles.get(i);
+            return false;
+        }
 
-            boolean sameColor = previous.getColor().equals(current.getColor());
-            boolean consecutiveNumbers =
-                previous.getNumber() + 1 == current.getNumber();
+        Tile temp = tiles.get(t1);
+        int start = temp.getNumber();
+        int end = start + tiles.size() - 1;
+        if (start < 1 || end > 13)
+        {
+            return false;
+        }
 
-            if (!sameColor || !consecutiveNumbers)
+        for (int i = 0; i < tiles.size(); i++)
+        {
+            Tile t = tiles.get(i);
+            if (isJoker(t))
+            {
+                continue;
+            }
+
+            if (!t.getColor().equals(temp.getColor()) || t.getNumber() != start + i)
             {
                 return false;
             }
@@ -34,28 +63,39 @@ public class Run
         return true;
     }
 
-
+    @Override
     public boolean canAdd(Tile t)
     {
         if (tiles.isEmpty())
         {
             return true;
         }
-        Tile firstTile = tiles.get(0);
-        Tile lastTile = tiles.get(tiles.size() - 1);
 
-        if (!t.getColor().equals(firstTile.getColor())
-            || !t.getColor().equals(lastTile.getColor()))
+        if (tiles.size() >= 13)
         {
             return false;
         }
 
-        return t.getNumber() == firstTile.getNumber() - 1
-            || t.getNumber() == lastTile.getNumber() + 1;
+        int t1 = firstRealTile();
+        if (t1 == -1)
+        {
+            return true;
+        }
+
+        Tile temp = tiles.get(t1);
+        int start = temp.getNumber() - t1;
+        int end = start + tiles.size() - 1;
+
+        if (isJoker(t))
+        {
+            return start > 1 || end < 13;
+        }
+
+        return t.getColor().equals(temp.getColor()) && (t.getNumber() == start - 1 || t.getNumber() == end + 1);
 
     }
 
-
+    @Override
     public boolean addTile(Tile t)
     {
         if (!canAdd(t))
@@ -63,7 +103,7 @@ public class Run
             return false;
         }
 
-        if (!tiles.isEmpty() && t.getNumber() < tiles.get(0).getNumber())
+        if (goesOnFront(t))
         {
             tiles.add(t);
         }
@@ -74,7 +114,27 @@ public class Run
         }
 
         return true;
-
     }
+
+    private boolean goesOnFront(Tile t)
+    {
+        int t1 = firstRealTile();
+        if (t1 == -1)
+        {
+            return false;
+        }
+
+        int start = tiles.get(t1).getNumber() - t1;
+        int end = start + tiles.size() - 1;
+
+        if (isJoker(t))
+        {
+            return end == 13;
+        }
+
+        return t.getNumber() == start - 1;
+    }
+
+
 
 } // end of isValid method
