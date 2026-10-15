@@ -1,4 +1,5 @@
-public class Run extends Set
+public class Run
+    extends Set
 {
     private final LinkedChain<Tile> tiles;
 
@@ -8,22 +9,24 @@ public class Run extends Set
         tiles = new LinkedChain<>();
     }
 
+
     @Override
     public boolean isValid()
     {
-        if (tiles.size() < 3 || tiles.size() > 14)
+        if (tiles.size() < 3 || tiles.size() > 13)
         {
             return false;
         }
-        for (int i = 0; i < tiles.size(); i++)
+        for (int i = 1; i < tiles.size(); i++)
         {
-            Tile previous = tiles.get(i-1);
+            Tile previous = tiles.get(i - 1);
             Tile current = tiles.get(i);
 
             boolean sameColor = previous.getColor().equals(current.getColor());
-            boolean consecutiveNumbers = previous.getNumber() + 1 == current.getNumber();
+            boolean consecutiveNumbers =
+                previous.getNumber() + 1 == current.getNumber();
 
-            if(!sameColor || !consecutiveNumbers)
+            if (!sameColor || !consecutiveNumbers)
             {
                 return false;
             }
@@ -32,14 +35,15 @@ public class Run extends Set
         return true;
     }
 
+
     public boolean canAdd(Tile t)
     {
         if (tiles.isEmpty())
         {
             return true;
         }
-
-        if(!tiles.isEmpty() && t.getNumber() < tiles.get(0).getNumber())
+        // what is this doing?
+        if (!tiles.isEmpty() && t.getNumber() < tiles.get(0).getNumber())
         {
             tiles.add(t);
         }
@@ -52,6 +56,5 @@ public class Run extends Set
         return true;
 
     }
-
 
 } // end of isValid method
