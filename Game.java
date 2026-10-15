@@ -37,13 +37,13 @@ public class Game
 
     public void shuffleDrawPile()
     {
-        LinkedChain<Tile> randomPile = new LinkedChain<Tile>();
         Tile[] original = drawPile.toArray(new Tile[drawPile.size()]);
+        drawPile.clear();
         Random r = new Random();
         for (int i = 0; i < drawPile.size(); i++)
         {
             int index = r.nextInt(drawPile.size() - i) + i;
-            randomPile.add(original[index]);
+            drawPile.add(original[index]);
             original[index] = original[i];
             original[i] = null;
         }

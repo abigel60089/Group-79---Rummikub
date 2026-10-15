@@ -1,13 +1,9 @@
 public class Group
     extends Set
 {
-
-    private final LinkedChain<Tile> tiles;
-
     public Group()
     {
         super();
-        tiles = new LinkedChain<>();
     }
 
 
@@ -63,6 +59,17 @@ public class Group
 
         return true;
 
+    }
+
+
+    public boolean addTile(Tile t)
+    {
+        if (!canAdd(t))
+        {
+            return false;
+        }
+        tiles.add(t);
+        return true;
     }
 
 } // end of group sub-class

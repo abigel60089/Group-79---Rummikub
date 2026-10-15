@@ -1,14 +1,13 @@
 public class Run
     extends Set
 {
-    private final LinkedChain<Tile> tiles;
-    //private static final int Joker = 14;
+    // private static final int Joker = 14;
 
     public Run()
     {
         super();
-        tiles = new LinkedChain<>();
     }
+
 
     @Override
     public boolean isValid()
@@ -51,9 +50,11 @@ public class Run
             return false;
         }
 
-        return t.getNumber() == firstTile.getNumber() - 1 || t.getNumber() == lastTile.getNumber() + 1;
+        return t.getNumber() == firstTile.getNumber() - 1
+            || t.getNumber() == lastTile.getNumber() + 1;
 
     }
+
 
     public boolean addTile(Tile t)
     {
