@@ -339,9 +339,9 @@ public class Player
 
         // Step 1 and 2: every set valid, and total points for the initial meld
         int totalPoints = 0;
-        for (int i = 1; i <= sets.getLength(); i++)
+        for (int i = 0; i < sets.size(); i++)
         {
-            Set s = sets.getEntry(i);
+            Set s = sets.get(i);
             if (s == null || s.isEmpty() || !s.isValid())
             {
                 return false;
@@ -354,19 +354,19 @@ public class Player
         }
 
         // Step 3: match every tile in every set to an unused tile in the hand
-        int handSize = hand.getLength();
-        boolean[] used = new boolean[handSize + 1];          // index
-                                                             // 1..handSize
-        for (int i = 1; i <= sets.getLength(); i++)
+        int handSize = hand.size();
+        boolean[] used = new boolean[handSize];          // index
+                                                         // 1..handSize
+        for (int i = 0; i < sets.size(); i++)
         {
-            Set s = sets.getEntry(i);
-            for (int k = 1; k <= s.getLength(); k++)
+            Set s = sets.get(i);
+            for (int k = 0; k < s.size(); k++)
             {
-                Tile needed = s.getEntry(k);
+                Tile needed = s.get(k);
                 boolean found = false;
-                for (int j = 1; j <= handSize && !found; j++)
+                for (int j = 0; j < handSize && !found; j++)
                 {
-                    if (!used[j] && hand.getEntry(j).equals(needed))
+                    if (!used[j] && hand.get(j).equals(needed))
                     {
                         used[j] = true;
                         found = true;
@@ -380,11 +380,11 @@ public class Player
         }
 
         // Step 4: remove matched tiles, highest position first
-        for (int j = handSize; j >= 1; j--)
+        for (int j = handSize - 1; j >= 0; j--)
         {
             if (used[j])
             {
-                hand.remove(j);
+                hand.remove(hand.get(j));
             }
         }
 
@@ -402,11 +402,11 @@ public class Player
      */
     public void sortHand()
     {
-        Tile[] tiles = new Tile[hand.getLength()];
+        Tile[] tiles = new Tile[hand.size()];
         for (int i = 0; i < tiles.length; i++)
         {
-            tiles[i] = hand.remove(1);                       // always take the
-                                                             // front tile
+            tiles[i] = hand.remove();                       // always take the
+                                                            // front tile
         }
         Arrays.sort(tiles, BY_COLOR_THEN_NUMBER);
         for (Tile t : tiles)
@@ -425,9 +425,9 @@ public class Player
     public int getHandValue()
     {
         int total = 0;
-        for (int i = 1; i <= hand.getLength(); i++)
+        for (int i = 0; i < hand.size(); i++)
         {
-            total += hand.getEntry(i).getNumber();
+            total += hand.get(i).getNumber();
         }
         return total;
     }
@@ -440,16 +440,16 @@ public class Player
      */
     public void displayHand()
     {
-        System.out.println(name + "'s hand (" + hand.getLength() + " tiles):");
+        System.out.println(name + "'s hand (" + hand.size() + " tiles):");
         if (hand.isEmpty())
         {
             System.out.println("  (empty)");
             return;
         }
         StringBuilder sb = new StringBuilder();
-        for (int i = 1; i <= hand.getLength(); i++)
+        for (int i = 0; i < hand.size(); i++)
         {
-            sb.append(i).append(":").append(hand.getEntry(i)).append("  ");
+            sb.append(i).append(":").append(hand.get(i)).append("  ");
         }
         System.out.println(sb.toString().trim());
     }
@@ -476,12 +476,7 @@ public class Player
      */
     protected Tile[] handToArray()
     {
-        Tile[] tiles = new Tile[hand.getLength()];
-        for (int i = 0; i < tiles.length; i++)
-        {
-            tiles[i] = hand.getEntry(i + 1);
-        }
-        return tiles;
+        return hand.toArray(new Tile[hand.size()]);
     }
 
 
@@ -489,6 +484,6 @@ public class Player
     @Override
     public String toString()
     {
-        return name + " (" + hand.getLength() + " tiles)";
+        return name + " (" + hand.size() + " tiles)";
     }
 }

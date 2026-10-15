@@ -16,26 +16,52 @@ public abstract class Set
 
 
     public abstract boolean addTile(Tile t);
-    
-    //doesn't account for jokers, yet
-    public int getPoints() {
-        if (tiles.isEmpty()) {
+
+
+    public boolean isEmpty()
+    {
+        return tiles.isEmpty();
+    }
+
+
+    public int size()
+    {
+        return tiles.size();
+    }
+
+
+    public Tile get(int i)
+    {
+        return tiles.get(i);
+    }
+
+
+    // doesn't account for jokers, yet
+    public int getPoints()
+    {
+        if (tiles.isEmpty())
+        {
             return 0;
         }
         int sum = 0;
-        for(int i=0; i<tiles.size(); i++) {
+        for (int i = 0; i < tiles.size(); i++)
+        {
             sum += tiles.get(i).getNumber();
         }
         return sum;
     }
-    
-    //arbitrary format, we can change it later ig
-    public String toString() {
-        if (tiles.isEmpty()) {
+
+
+    // arbitrary format, we can change it later ig
+    public String toString()
+    {
+        if (tiles.isEmpty())
+        {
             return "";
         }
         String str = "";
-        for(int i=0; i < tiles.size(); i++) {
+        for (int i = 0; i < tiles.size(); i++)
+        {
             str += "| " + tiles.get(i) + " ";
         }
         return str + "|";
