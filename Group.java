@@ -1,4 +1,5 @@
-public class Group extends Set
+public class Group
+    extends Set
 {
 
     private final LinkedChain<Tile> tiles;
@@ -9,10 +10,11 @@ public class Group extends Set
         tiles = new LinkedChain<>();
     }
 
+
     @Override
     public boolean isValid()
     {
-        if(tiles.size() != 3)
+        if ((tiles.size() != 3) && (tiles.size() != 4))
         {
             return false;
         }
@@ -23,7 +25,8 @@ public class Group extends Set
             {
                 Tile t1 = tiles.get(i);
                 Tile t2 = tiles.get(j);
-                if(t1.getNumber() != t2.getNumber() || t1.getColor().equals(t2.getColor()))
+                if (t1.getNumber() != t2.getNumber()
+                    || t1.getColor().equals(t2.getColor()))
                 {
                     return false;
                 }
@@ -33,6 +36,7 @@ public class Group extends Set
         return true;
     }
 
+
     public boolean canAdd(Tile t)
     {
         if (tiles.isEmpty())
@@ -40,7 +44,7 @@ public class Group extends Set
             return true;
         }
 
-        if (tiles.size() >= 3)
+        if (tiles.size() >= 4)
         {
             return false;
         }
@@ -48,8 +52,9 @@ public class Group extends Set
         for (int i = 0; i < tiles.size(); i++)
         {
             Tile currentTile = tiles.get(i);
-            
-            if(currentTile.getNumber() != t.getNumber() || currentTile.getColor().equals(t.getColor()))
+
+            if (currentTile.getNumber() != t.getNumber()
+                || currentTile.getColor().equals(t.getColor()))
             {
                 return false;
             }
@@ -59,6 +64,5 @@ public class Group extends Set
         return true;
 
     }
-    
 
 } // end of group sub-class

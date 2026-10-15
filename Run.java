@@ -1,4 +1,5 @@
-public class Run extends Set
+public class Run
+    extends Set
 {
     private final LinkedChain<Tile> tiles;
     //private static final int Joker = 14;
@@ -9,44 +10,23 @@ public class Run extends Set
         tiles = new LinkedChain<>();
     }
 
-   /* private boolean isJoker(Tile t)
-    {
-        return t.getNumber() == Joker;
-    }
-
-    private int firstRealTile()
-    {
-        for (int i=0; i < tiles.size(); i++)
-        {
-            if (!isJoker(tiles.get(i)))
-            {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
-*/
     @Override
     public boolean isValid()
     {
-        if (tiles.size() < 3 || tiles.size() > 14)
+        if (tiles.size() < 3 || tiles.size() > 13)
         {
             return false;
         }
-
-
-        // start edit from here
-        for (int i = 0; i < tiles.size(); i++)
+        for (int i = 1; i < tiles.size(); i++)
         {
-            Tile previous = tiles.get(i-1);
+            Tile previous = tiles.get(i - 1);
             Tile current = tiles.get(i);
 
             boolean sameColor = previous.getColor().equals(current.getColor());
-            boolean consecutiveNumbers = previous.getNumber() + 1 == current.getNumber();
+            boolean consecutiveNumbers =
+                previous.getNumber() + 1 == current.getNumber();
 
-            if(!sameColor || !consecutiveNumbers)
+            if (!sameColor || !consecutiveNumbers)
             {
                 return false;
             }
@@ -55,17 +35,18 @@ public class Run extends Set
         return true;
     }
 
+
     public boolean canAdd(Tile t)
     {
         if (tiles.isEmpty())
         {
             return true;
         }
-
         Tile firstTile = tiles.get(0);
         Tile lastTile = tiles.get(tiles.size() - 1);
 
-        if(!t.getColor().equals(firstTile.getColor()) || !t.getColor().equals(lastTile.getColor()))
+        if (!t.getColor().equals(firstTile.getColor())
+            || !t.getColor().equals(lastTile.getColor()))
         {
             return false;
         }
@@ -76,12 +57,12 @@ public class Run extends Set
 
     public boolean addTile(Tile t)
     {
-        if(!canAdd(t))
+        if (!canAdd(t))
         {
             return false;
         }
-        
-        if(!tiles.isEmpty() && t.getNumber() < tiles.get(0).getNumber())
+
+        if (!tiles.isEmpty() && t.getNumber() < tiles.get(0).getNumber())
         {
             tiles.add(t);
         }
@@ -94,6 +75,5 @@ public class Run extends Set
         return true;
 
     }
-
 
 } // end of isValid method
