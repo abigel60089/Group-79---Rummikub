@@ -53,7 +53,6 @@ Who does what
 
 | `Game.java` | Sarah, Aaron, Abigel| Aaron wrote `createTiles()` and `shuffleDrawPile()`. Sarah wrote `checkWinner`, `addSetToTable`, and `displayBoard`. Abigel wrote the other methods: `announceWinner`, `takePlayerTurn`, Abigel used GenAI assistance to adapt the game to the two-player prototype and help out with play method. |
 | --- | --- | --- |
-
 | `Group.java` | Abigel, Aaron | Aaron wrote getPoints() method. Abigel wrote rest of the class|
 | --- | --- | --- |
 | `LinkedChain.java` | Did not get modified |
