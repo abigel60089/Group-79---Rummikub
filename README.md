@@ -67,9 +67,13 @@ Who does what
 
 
 | `src/test/java/GroupTest.java` | GenAI-assisted; team reviewed | Tests group validity, duplicate colors, joker groups, and scoring. |
+
 | `src/test/java/LinkedChainTest.java` | GenAI-assisted; team reviewed | Tests insertion order, removal, counting, array conversion, indexing, and clearing. |
+
 | `src/test/java/PlayerTest.java` | GenAI-assisted; team reviewed | Tests initial meld scoring, hand membership, and later plays. |
+
 | `src/test/java/RunTest.java` | GenAI-assisted; team reviewed | Tests run validity, extensions, joker handling, and scoring. |
+
 | `src/test/java/TileTest.java` | GenAI-assisted; team reviewed | Tests tile equality, getters, and display text. |
 
 ### GenAI usage
