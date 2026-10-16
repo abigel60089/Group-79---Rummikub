@@ -11,7 +11,7 @@ Classes did not change, but methods did. As we wrote our code, we realized how m
 
 
 ## Next Steps
-We still have to make the game correctly handle joker tiles, but most of the MVP is already done. Additionally, we'll try to implement the computer class to play against the player, which means a new class to test and potentially new helper methods for that class. (we also need to say who's gonna do what after this)
+We still have to work on how the a player wins as well as how the game/board is displayed to the player, but most of the MVP is already done. Additionally, we'll try to implement the computer class to play against the player, which means a new class to test and potentially new helper methods for that class. (we also need to say who's gonna do what after this)
 
 
 Attribution (i think this should be a table but idk how to do that)
