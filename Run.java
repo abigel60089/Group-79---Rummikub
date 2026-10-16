@@ -115,6 +115,27 @@ public class Run extends Set
 
         return true;
     }
+    
+    @Override
+    public int getPoints() {
+        if(tiles.isEmpty()) {
+            return 0;
+        }
+        int pos = 0;
+        for(int i=0; i < tiles.size(); i++) {
+            if(tiles.get(i).getNumber() != 14) {
+                pos = i;
+                break;
+            }
+        }
+        if(pos == 0) {
+            return -1;
+        }
+        int first = tiles.get(pos).getNumber() - pos;
+        int last = first + tiles.size() - 1;
+        float sum = (tiles.size() / 2) * (first + last);
+        return Math.round(sum);
+    }
 
     private boolean goesOnFront(Tile t)
     {

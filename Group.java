@@ -1,4 +1,5 @@
-public class Group extends Set
+public class Group
+    extends Set
 {
     private static final int JOKER = 14;
 
@@ -7,10 +8,12 @@ public class Group extends Set
         super();
     }
 
+
     private boolean isJoker(Tile t)
     {
         return t.getNumber() == JOKER;
     }
+
 
     @Override
     public boolean isValid()
@@ -38,25 +41,27 @@ public class Group extends Set
                     continue;
                 }
 
-                if (t1.getNumber() != t2.getNumber() || t1.getColor().equals(t2.getColor()))
+                if (t1.getNumber() != t2.getNumber()
+                    || t1.getColor().equals(t2.getColor()))
                 {
                     return false;
                 }
             }
-            
+
         }
 
         return realTiles > 0;
     }
 
+
     @Override
     public boolean canAdd(Tile t)
     {
-        if (tiles.size() >=3)
+        if (tiles.size() >= 3)
         {
             return false;
         }
-        
+
         if (tiles.isEmpty())
         {
             return true;
@@ -81,7 +86,8 @@ public class Group extends Set
                 continue;
             }
 
-            if (currentTile.getNumber() != t.getNumber() || currentTile.getColor().equals(t.getColor()))
+            if (currentTile.getNumber() != t.getNumber()
+                || currentTile.getColor().equals(t.getColor()))
             {
                 return false;
             }
@@ -91,6 +97,7 @@ public class Group extends Set
         return true;
 
     }
+
 
     @Override
     public boolean addTile(Tile t)
@@ -102,6 +109,24 @@ public class Group extends Set
 
         tiles.add(t);
         return true;
+    }
+
+
+    @Override
+    public int getPoints()
+    {
+        if (tiles.isEmpty())
+        {
+            return 0;
+        }
+        for (int i = 0; i < tiles.size(); i++)
+        {
+            if (tiles.get(i).getNumber() != 14)
+            {
+                return tiles.get(i).getNumber() * tiles.size();
+            }
+        }
+        return -1; // this means all tiles are jokers, idk what to do about that
     }
 
 } // end of group sub-class

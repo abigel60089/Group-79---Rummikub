@@ -36,20 +36,7 @@ public abstract class Set
     }
 
 
-    // doesn't account for jokers, yet
-    public int getPoints()
-    {
-        if (tiles.isEmpty())
-        {
-            return 0;
-        }
-        int sum = 0;
-        for (int i = 0; i < tiles.size(); i++)
-        {
-            sum += tiles.get(i).getNumber();
-        }
-        return sum;
-    }
+    public abstract int getPoints();
 
 
     // arbitrary format, we can change it later ig

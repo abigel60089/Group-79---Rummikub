@@ -14,12 +14,12 @@ Classes did not change, but methods did. As we wrote our code, we realized how m
 We still have to make the game correctly handle joker tiles, but most of the MVP is already done. Additionally, we'll try to implement the computer class to play against the player, which means a new class to test and potentially new helper methods for that class. (we also need to say who's gonna do what after this)
 
 
-Attribution (i think this has to be a table but idk how to do that)
+Attribution (i think this should be a table but idk how to do that)
 
 Tile: 
 Set: Aaron wrote the isEmpty(), size(), and get() methods;
-Group:
-Run:
+Group: Aaron wrote getPoints() method;
+Run: Aaron wrote getPoints() method;
 Game: Aaron wrote the createTiles() and shuffleDrawPile() methods; 
 Player: Enoch wrote everything; Aaron reviewed and bug fixed.
 
