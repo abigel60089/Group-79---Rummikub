@@ -101,7 +101,7 @@ public class Group
         {
             return false;
         }
-        
+
         return tiles.add(t);
     }
 
@@ -120,7 +120,8 @@ public class Group
                 return tiles.get(i).getNumber() * tiles.size();
             }
         }
-        return 0; // now every tile counts as the group's number, including the jokers
+        return 0; // now every tile counts as the group's number, including the
+                  // jokers
     }
 
 } // end of group sub-class

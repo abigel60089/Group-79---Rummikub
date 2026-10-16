@@ -18,6 +18,9 @@ public abstract class Set
     public abstract boolean addTile(Tile t);
 
 
+    public abstract int getPoints();
+
+
     public boolean isEmpty()
     {
         return tiles.isEmpty();
@@ -34,9 +37,6 @@ public abstract class Set
     {
         return tiles.get(i);
     }
-
-
-    public abstract int getPoints();
 
 
     // arbitrary format, we can change it later ig
