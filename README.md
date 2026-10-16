@@ -18,6 +18,14 @@ Enter two player names, then take turns using the numbered hand positions when a
 
 Because this is a basic version, it does not yet support rearranging tiles already on the table.
 
+## Running the tests
+
+The project uses JUnit 4. If you want to run the test, do this in the project directory with:
+
+```sh
+mvn test
+```
+
 
 ## Reflection
 Classes did not change, but methods did. As we wrote our code, we realized how much some methods need to handle (specially in Player and Game), so we wrote many helper methods that we didn't plan for initially. Despite this, the given LinkedChain class wasn't modified at all. Additionally, we need to further implement the part where players choose if they want to draw a random tile instead of playing.
@@ -52,8 +60,12 @@ Who does what
 | `Set.java` | Aaron, Sarah | Aaron wrote the isEmpty(), size(), and get() methods. Sarah wrote rest of the class |
 | `Tile.java` | Sarah | Wrote the class |
 
-| Test files | None currently present | No test files are in the project. |
+| `src/test/java/GroupTest.java` | GenAI-assisted; team reviewed | Tests group validity, duplicate colors, joker groups, and scoring. |
+| `src/test/java/LinkedChainTest.java` | GenAI-assisted; team reviewed | Tests insertion order, removal, counting, array conversion, indexing, and clearing. |
+| `src/test/java/PlayerTest.java` | GenAI-assisted; team reviewed | Tests initial meld scoring, hand membership, and later plays. |
+| `src/test/java/RunTest.java` | GenAI-assisted; team reviewed | Tests run validity, extensions, joker handling, and scoring. |
+| `src/test/java/TileTest.java` | GenAI-assisted; team reviewed | Tests tile equality, getters, and display text. |
 
 ### GenAI usage
 
-GenAI assistance was used to adapt `Game.java` for the two-player prototype and to update this README's attribution and documentation. Team members have reviewed and verified AI-assisted changes.
+GenAI assistance was used to adapt `Game.java` for the two-player prototype, help out with play method, and generate JUnit tests. Team members have reviewed and verified AI-assisted changes.
