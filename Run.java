@@ -1,5 +1,4 @@
-public class Run
-    extends Set
+public class Run extends Set
 {
     private static final int JOKER = 14;
 
@@ -43,7 +42,7 @@ public class Run
         }
 
         Tile temp = tiles.get(t1);
-        int start = temp.getNumber();
+        int start = temp.getNumber() - t1;
         int end = start + tiles.size() - 1;
         if (start < 1 || end > 13)
         {
@@ -132,23 +131,13 @@ public class Run
         {
             return 0;
         }
-        int pos = -1;
-        for (int i = 0; i < tiles.size(); i++)
+        int position = firstRealTile();
+        if (position == -1)
         {
-            if (tiles.get(i).getNumber() != 14)
-            {
-                pos = i;
-                break;
-            }
+            return 0;
         }
-        if (pos == -1)
-        {
-            return -1; // this means all tiles are jokers, idk if that'll happen
-        }
-        int first = tiles.get(pos).getNumber() - pos;
-        int last = first + tiles.size() - 1;
-        float sum = (tiles.size() / 2) * (first + last);
-        return Math.round(sum);
+        int first = tiles.get(position).getNumber() - position;
+        return tiles.size() * (2 * first + tiles.size() - 1) / 2;
     }
 
 
