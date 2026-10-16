@@ -1,4 +1,5 @@
-public class Run extends Set
+public class Run
+    extends Set
 {
     private static final int JOKER = 14;
 
@@ -7,10 +8,12 @@ public class Run extends Set
         super();
     }
 
+
     private boolean isJoker(Tile t)
     {
         return t.getNumber() == JOKER;
     }
+
 
     private int firstRealTile()
     {
@@ -23,6 +26,7 @@ public class Run extends Set
         }
         return -1;
     }
+
 
     @Override
     public boolean isValid()
@@ -54,7 +58,8 @@ public class Run extends Set
                 continue;
             }
 
-            if (!t.getColor().equals(temp.getColor()) || t.getNumber() != start + i)
+            if (!t.getColor().equals(temp.getColor())
+                || t.getNumber() != start + i)
             {
                 return false;
             }
@@ -62,6 +67,7 @@ public class Run extends Set
 
         return true;
     }
+
 
     @Override
     public boolean canAdd(Tile t)
@@ -91,9 +97,11 @@ public class Run extends Set
             return start > 1 || end < 13;
         }
 
-        return t.getColor().equals(temp.getColor()) && (t.getNumber() == start - 1 || t.getNumber() == end + 1);
+        return t.getColor().equals(temp.getColor())
+            && (t.getNumber() == start - 1 || t.getNumber() == end + 1);
 
     }
+
 
     @Override
     public boolean addTile(Tile t)
@@ -115,27 +123,34 @@ public class Run extends Set
 
         return true;
     }
-    
+
+
     @Override
-    public int getPoints() {
-        if(tiles.isEmpty()) {
+    public int getPoints()
+    {
+        if (tiles.isEmpty())
+        {
             return 0;
         }
-        int pos = 0;
-        for(int i=0; i < tiles.size(); i++) {
-            if(tiles.get(i).getNumber() != 14) {
+        int pos = -1;
+        for (int i = 0; i < tiles.size(); i++)
+        {
+            if (tiles.get(i).getNumber() != 14)
+            {
                 pos = i;
                 break;
             }
         }
-        if(pos == 0) {
-            return -1;
+        if (pos == -1)
+        {
+            return -1; // this means all tiles are jokers, idk if that'll happen
         }
         int first = tiles.get(pos).getNumber() - pos;
         int last = first + tiles.size() - 1;
         float sum = (tiles.size() / 2) * (first + last);
         return Math.round(sum);
     }
+
 
     private boolean goesOnFront(Tile t)
     {
@@ -155,7 +170,5 @@ public class Run extends Set
 
         return t.getNumber() == start - 1;
     }
-
-
 
 } // end of isValid method
