@@ -18,7 +18,7 @@ public class Group
     @Override
     public boolean isValid()
     {
-        if ((tiles.size() != 3) || (tiles.size() != 4))
+        if ((tiles.size() < 3) || (tiles.size() > 4))
         {
             return false;
         }
@@ -57,7 +57,7 @@ public class Group
     @Override
     public boolean canAdd(Tile t)
     {
-        if (tiles.size() >= 3)
+        if (tiles.size() >= 4)
         {
             return false;
         }
@@ -65,11 +65,6 @@ public class Group
         if (tiles.isEmpty())
         {
             return true;
-        }
-
-        if (tiles.size() >= 4)
-        {
-            return false;
         }
 
         if (isJoker(t))
@@ -106,9 +101,8 @@ public class Group
         {
             return false;
         }
-
-        tiles.add(t);
-        return true;
+        
+        return tiles.add(t);
     }
 
 
@@ -121,12 +115,12 @@ public class Group
         }
         for (int i = 0; i < tiles.size(); i++)
         {
-            if (tiles.get(i).getNumber() != 14)
+            if (!isJoker(tiles.get(i)))
             {
                 return tiles.get(i).getNumber() * tiles.size();
             }
         }
-        return -1; // this means all tiles are jokers, idk what to do about that
+        return 0; // now every tile counts as the group's number, including the jokers
     }
 
 } // end of group sub-class
