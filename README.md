@@ -25,6 +25,13 @@ The project uses JUnit 4. If you want to run the test, do this in the project di
 ```sh
 mvn test
 ```
+### Starting the game
+Type this in the terminal window
+
+cd /workspaces/Group-79---Rummikub
+javac *.java
+java Game
+
 
 
 ## Reflection
