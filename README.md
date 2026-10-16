@@ -52,19 +52,19 @@ Who does what
 | --- | --- | --- |
 
 | `Game.java` | Sarah, Aaron, Abigel| Aaron wrote `createTiles()` and `shuffleDrawPile()`. Sarah wrote `checkWinner`, `addSetToTable`, and `displayBoard`. Abigel wrote the other methods: `announceWinner`, `takePlayerTurn`, Abigel used GenAI assistance to adapt the game to the two-player prototype and help out with play method. |
-| --- | --- | --- |
+
 | `Group.java` | Abigel, Aaron | Aaron wrote getPoints() method. Abigel wrote rest of the class|
-| --- | --- | --- |
+
 | `LinkedChain.java` | Did not get modified |
-| --- | --- | --- |
+
 | `Player.java` | Enoch, Aaron | Enoch wrote everything; Aaron reviewed it and fixed bugs.|
-| --- | --- | --- |
+
 | `Run.java` | Abigel, Aaron | Aaron wrote getPoints() method. Abigel wrote the rest of the class |
-| --- | --- | --- |
+
 | `Set.java` | Aaron, Sarah | Aaron wrote the isEmpty(), size(), and get() methods. Sarah wrote rest of the class |
-| --- | --- | --- |
+
 | `Tile.java` | Sarah | Wrote the class |
-| --- | --- | --- |
+
 
 | `src/test/java/GroupTest.java` | GenAI-assisted; team reviewed | Tests group validity, duplicate colors, joker groups, and scoring. |
 | `src/test/java/LinkedChainTest.java` | GenAI-assisted; team reviewed | Tests insertion order, removal, counting, array conversion, indexing, and clearing. |
