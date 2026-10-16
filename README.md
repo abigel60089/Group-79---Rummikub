@@ -5,24 +5,55 @@ Only for each player’s first move, the player cannot use tiles from already fo
 
 Objective of game: to clear your rack of tiles
 
+## Running the game
+
+Compile and run from the project directory:
+
+```sh
+javac *.java
+java Game
+```
+
+Enter two player names, then take turns using the numbered hand positions when asked to play a group or run. To take turns, pass the screen between players and avoid looking at the other player's hand. An initial meld can contain multiple sets whose points add up to at least 30. On later turns, play a set or end the turn to draw.
+
+Because this is a basic version, it does not yet support rearranging tiles already on the table.
+
 
 ## Reflection
-Classes did not change, but methods did. As we wrote our code, we realized how much some methods need to handle (specially in Player and Game), so we wrote many helper methods that we didn't plan for initially. Despite this, the given LinkedChain class wasn't modified at all. We also figured out some things that we didn't know how to do initially, such as the GUI and the game rules, but we still haven't figured out how to get the computer to play against the player.
+Classes did not change, but methods did. As we wrote our code, we realized how much some methods need to handle (specially in Player and Game), so we wrote many helper methods that we didn't plan for initially. Despite this, the given LinkedChain class wasn't modified at all. Additionally, we need to further implement the part where players choose if they want to draw a random tile instead of playing.
+We also figured out some things that we didn't know how to do initially, such as the GUI and the game rules, but we still haven't figured out how to get the computer to play against the player. For now, the player is playing against another player.
 
 
 ## Next Steps
-We still have to work on how the a player wins as well as how the game/board is displayed to the player, but most of the MVP is already done. Additionally, we'll try to implement the computer class to play against the player, which means a new class to test and potentially new helper methods for that class. (we also need to say who's gonna do what after this)
 
+For our next steps, we'll try to implement the computer class to play against the player, which means a new class to test and potentially new helper methods for that class. (we also need to say who's gonna do what after this) 
 
-Attribution (i think this should be a table but idk how to do that)
+Some stretch goals we will try to implement from the scope: 
+    - keeping track of score and consequences for not being able to complete a turn
+    - improve our GUI using colored text instead of black-and-white console tex
+    - having customizable difficulty
 
-Tile: 
-Set: Aaron wrote the isEmpty(), size(), and get() methods;
-Group: Aaron wrote getPoints() method;
-Run: Aaron wrote getPoints() method;
-Game: Aaron wrote the createTiles() and shuffleDrawPile() methods; 
-Player: Enoch wrote everything; Aaron reviewed and bug fixed.
+Who does what
+    - All teammembers will distribute making the computer class
+    - Enoch has already made methods that will change GUI colors, and will help teammates implement them into the game class
+    - All team members communicate and try to find ways to have customizable difficulty
 
-GenAI usage: 
+## Attribution
 
-(feel free to change any of the new stuff btw, i just wrote this by following the instructions in the canvas assignment)
+| Class or test file | Who worked on it | How |
+| --- | --- | --- |
+
+| `Game.java` | Sarah, Aaaron, Abigel| Aaron wrote `createTiles()` and `shuffleDrawPile()`. Sarah wrote `checkWinner`, `addSetToTable`, and `displayBoard`. Abigel wrote the other methods: `announceWinner`, `takePlayerTurn`, Abigel used GenAI assistance to adapt the game to the two-player prototype and help out with play method. |
+
+| `Group.java` | Abigel, Aaron | Aaron wrote getPoints() method. Abigel wrote rest of the class|
+| `LinkedChain.java` | Did not get modified |
+| `Player.java` | Enoch, Aaron | Enoch wrote everything; Aaron reviewed it and fixed bugs.|
+| `Run.java` | Abigel, Aaron | Aaron wrote getPoints() method. Abigel wrote the rest of the class |
+| `Set.java` | Aaron, Sarah | Aaron wrote the isEmpty(), size(), and get() methods. Sarah wrote rest of the class |
+| `Tile.java` | Sarah | Wrote the class |
+
+| Test files | None currently present | No test files are in the project. |
+
+### GenAI usage
+
+GenAI assistance was used to adapt `Game.java` for the two-player prototype and to update this README's attribution and documentation. Team members have reviewed and verified AI-assisted changes.
