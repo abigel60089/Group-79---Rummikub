@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class Game
 {
@@ -6,7 +7,7 @@ public class Game
     private LinkedChain<Set> table = new LinkedChain<Set>();
     private Player player;
     private Computer computer;
-    // private ? scanner;
+    private Scanner scanner;
     private boolean gameOver = false;
 
     public Game()
@@ -47,5 +48,36 @@ public class Game
             original[index] = original[i];
             original[i] = null;
         }
+    }
+
+
+    public void addSetToTable(Set set)
+    {
+        if (set.isValid())
+        {
+            table.add(set);
+            player.playSet(set);
+        }
+        else
+        {
+            System.out.println(
+                "Set cannot be played. Play a different set or end your turn.");
+        }
+    }
+    
+    public void displayBoard() {
+        for (Set set : table.toArray(T[] tile.getData())) {
+            System.out.print(set.toString());
+            
+        //not final;  needs a lot of fixing.
+        }
+    }
+    
+    public boolean checkWinner() {
+        if (player.hasWon()) {
+            return true;
+        }
+        
+        return false;
     }
 }
