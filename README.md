@@ -7,9 +7,10 @@ Objective of game: to clear your rack of tiles
 
 ## Running the game
 
-Compile and run from the project directory:
+Compile and run from the terminal window:
 
 ```sh
+cd /workspaces/Group-79---Rummikub
 javac *.java
 java Game
 ```
@@ -25,8 +26,6 @@ The project uses JUnit 4. If you want to run the test, do this in the project di
 ```sh
 mvn test
 ```
-
-
 ## Reflection
 Classes did not change, but methods did. As we wrote our code, we realized how much some methods need to handle (specially in Player and Game), so we wrote many helper methods that we didn't plan for initially. Despite this, the given LinkedChain class wasn't modified at all. Additionally, we need to further implement the part where players choose if they want to draw a random tile instead of playing.
 We also figured out some things that we didn't know how to do initially, such as the GUI and the game rules, but we still haven't figured out how to get the computer to play against the player. For now, the player is playing against another player.
@@ -52,24 +51,28 @@ Who does what
 | --- | --- | --- |
 
 | `Game.java` | Sarah, Aaron, Abigel| Aaron wrote `createTiles()` and `shuffleDrawPile()`. Sarah wrote `checkWinner`, `addSetToTable`, and `displayBoard`. Abigel wrote the other methods: `announceWinner`, `takePlayerTurn`, Abigel used GenAI assistance to adapt the game to the two-player prototype and help out with play method. |
-| --- | --- | --- |
+
 | `Group.java` | Abigel, Aaron | Aaron wrote getPoints() method. Abigel wrote rest of the class|
-| --- | --- | --- |
+
 | `LinkedChain.java` | Did not get modified |
-| --- | --- | --- |
+
 | `Player.java` | Enoch, Aaron | Enoch wrote everything; Aaron reviewed it and fixed bugs.|
-| --- | --- | --- |
+
 | `Run.java` | Abigel, Aaron | Aaron wrote getPoints() method. Abigel wrote the rest of the class |
-| --- | --- | --- |
+
 | `Set.java` | Aaron, Sarah | Aaron wrote the isEmpty(), size(), and get() methods. Sarah wrote rest of the class |
-| --- | --- | --- |
+
 | `Tile.java` | Sarah | Wrote the class |
-| --- | --- | --- |
+
 
 | `src/test/java/GroupTest.java` | GenAI-assisted; team reviewed | Tests group validity, duplicate colors, joker groups, and scoring. |
+
 | `src/test/java/LinkedChainTest.java` | GenAI-assisted; team reviewed | Tests insertion order, removal, counting, array conversion, indexing, and clearing. |
+
 | `src/test/java/PlayerTest.java` | GenAI-assisted; team reviewed | Tests initial meld scoring, hand membership, and later plays. |
+
 | `src/test/java/RunTest.java` | GenAI-assisted; team reviewed | Tests run validity, extensions, joker handling, and scoring. |
+
 | `src/test/java/TileTest.java` | GenAI-assisted; team reviewed | Tests tile equality, getters, and display text. |
 
 ### GenAI usage
