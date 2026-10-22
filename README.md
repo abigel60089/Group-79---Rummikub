@@ -27,8 +27,13 @@ The project uses JUnit 4. If you want to run the test, do this in the project di
 mvn test
 ```
 ## Reflection
-Classes did not change, but methods did. As we wrote our code, we realized how much some methods need to handle (specially in Player and Game), so we wrote many helper methods that we didn't plan for initially. Despite this, the given LinkedChain class wasn't modified at all. Additionally, we need to further implement the part where players choose if they want to draw a random tile instead of playing.
-We also figured out some things that we didn't know how to do initially, such as the GUI and the game rules, but we still haven't figured out how to get the computer to play against the player. For now, the player is playing against another player.
+What changed from your specification?: Classes did not change, but methods did. As we wrote our code, we realized how much some methods need to handle (specially in Player and Game), so we wrote many helper methods that we didn't plan for initially. This all happened through our meetings and individual coding times.
+
+What changed in the LinkedChain?: Despite these changes, the given LinkedChain class wasn't modified at all. Additionally, we need to further implement the part where players choose if they want to draw a random tile instead of playing. We decided on not changing anything of the class through our coversations about the game.
+
+What happened to the unknowns? We figured out some things that we didn't know how to do initially, such as the GUI and the game rules by researching and talking over some of the past things that were done.
+
+What doesn't work yet? We still haven't figured out how to get the computer to play against the player. For now, the player is playing against another player.
 
 
 ## Next Steps
