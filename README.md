@@ -78,3 +78,6 @@ Who does what
 ### GenAI usage
 
 GenAI assistance was used to adapt `Game.java` for the two-player prototype, help out with play method, and generate JUnit tests. Team members have reviewed and verified AI-assisted changes.
+
+### System Diagram
+https://docs.google.com/document/d/16Dh-sPuOrqSh66Iml23WTMzUySfWBzUC3cahu9CiUUI/edit?usp=sharing
