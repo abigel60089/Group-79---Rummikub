@@ -7,3 +7,10 @@
 /target/
 /GroupTest.class
 /SetTest.class
+
+*.code-workspace
+.vscode/
+lib/
+bin/
+target/
+*.class
