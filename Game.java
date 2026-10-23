@@ -13,7 +13,6 @@ public class Game
     private Player player1;
     private Player player2;
     private Scanner scanner;
-    private boolean vsCom = false;
 
     // ----------------------------------------------------------
     /**
@@ -167,8 +166,7 @@ public class Game
         System.out.println("Welcome to Rummikub!");
         System.out.print("Enter your name: ");
         player1 = new Player(getInput().nextLine());
-        System.out.print("Enter Player 2's name: ");
-        player2 = new Player(getInput().nextLine());
+        player2 = new Computer("Computer");
         dealHands();
 
         while (true)
@@ -209,8 +207,6 @@ public class Game
      */
     private void takePlayerTurn(Player currentPlayer)
     {
-        System.out.println("Pass the screen to " + currentPlayer.getName() + ". Press Enter when ready.");
-        getInput().nextLine();
         displayBoard();
         currentPlayer.takeTurn(this);
     }
