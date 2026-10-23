@@ -53,6 +53,7 @@ public class Computer
                         complete = false;
                         break;
                     }
+                    wasFound = false;
                 }
                 if(complete) {
                     plays.add(set);
