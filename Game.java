@@ -3,8 +3,7 @@ import java.util.Scanner;
 
 // -------------------------------------------------------------------------
 /**
- *  Main class that creates Game object and runs Rummikub game.
- * 
+ * Main class that creates Game object and runs Rummikub game.
  */
 public class Game
 {
@@ -13,6 +12,7 @@ public class Game
     private Player player1;
     private Player player2;
     private Scanner scanner;
+    private boolean vsCom = false;
 
     // ----------------------------------------------------------
     /**
@@ -24,6 +24,7 @@ public class Game
         createTiles();
         shuffleDrawPile();
     }
+
 
     /**
      * Creates draw pile with random tiles.
@@ -43,7 +44,7 @@ public class Game
         drawPile.add(new Tile(14, "black"));
     }
 
-    
+
     // ----------------------------------------------------------
     /**
      * Shuffles order of tiles in draw pile to make random.
@@ -66,8 +67,9 @@ public class Game
     // ----------------------------------------------------------
     /**
      * After player plays set, set gets added to table.
+     * 
      * @param set
-     *          set of tiles played
+     *            set of tiles played
      */
     public void addSetToTable(Set set)
     {
@@ -81,7 +83,8 @@ public class Game
                 "Set cannot be played. Play a different set or end your turn.");
         }
     }
-    
+
+
     // ----------------------------------------------------------
     /**
      * Prints out all sets on table.
@@ -101,9 +104,11 @@ public class Game
         }
     }
 
+
     // ----------------------------------------------------------
     /**
      * Checks if either player has won and gotten rid of all tiles.
+     * 
      * @return true if player 1 or player 2 won
      */
     public boolean checkWinner()
@@ -111,6 +116,7 @@ public class Game
         return player1 != null && player1.hasWon()
             || player2 != null && player2.hasWon();
     }
+
 
     // ----------------------------------------------------------
     /**
@@ -125,9 +131,11 @@ public class Game
         }
     }
 
+
     // ----------------------------------------------------------
     /**
      * Removes tile from draw pile.
+     * 
      * @return tile to remove
      */
     public Tile drawFromPile()
@@ -135,15 +143,18 @@ public class Game
         return drawPile.remove();
     }
 
+
     // ----------------------------------------------------------
     /**
      * Returns scanner for user input
+     * 
      * @return scanner
      */
     public Scanner getInput()
     {
         return scanner;
     }
+
 
     // ----------------------------------------------------------
     /**
@@ -152,11 +163,25 @@ public class Game
      */
     public void play()
     {
+        play(false);
+    }
+
+
+    public void play(boolean againstComputer)
+    {
+        vsCom = againstComputer;
         System.out.println("Welcome to Rummikub!");
         System.out.print("Enter Player 1's name: ");
         player1 = new Player(getInput().nextLine());
-        System.out.print("Enter Player 2's name: ");
-        player2 = new Player(getInput().nextLine());
+        if (vsCom)
+        {
+            player2 = new Computer(player1.getName() + "'s rival");
+        }
+        else
+        {
+            System.out.print("Enter Player 2's name: ");
+            player2 = new Player(getInput().nextLine());
+        }
         dealHands();
 
         while (true)
@@ -180,28 +205,45 @@ public class Game
                 break;
             }
 
-            boolean noOneCanPlay = drawPile.isEmpty() && player1.getHand().size() == player1Before && player2.getHand().size() == player2Before;
+            boolean noOneCanPlay =
+                drawPile.isEmpty() && player1.getHand().size() == player1Before
+                    && player2.getHand().size() == player2Before;
             if (noOneCanPlay)
             {
-                System.out.println(
-                    "No one can play and the draw pile is empty.");
+                System.out
+                    .println("No one can play and the draw pile is empty.");
                 break;
             }
         }
         announceWinner();
     }
 
+
     /**
      * Switches turn between players.
      */
     private void takePlayerTurn(Player currentPlayer)
     {
-        System.out.println("Pass the screen to " + currentPlayer.getName() + ". Press Enter when ready.");
-        getInput().nextLine();
-        displayBoard();
-        currentPlayer.takeTurn(this);
+        if (vsCom)
+        {
+            if (currentPlayer == player1)
+            {
+                displayBoard();
+            }
+            currentPlayer.takeTurn(this);
+        }
+        else
+        {
+            System.out.println(
+                "Pass the screen to " + currentPlayer.getName()
+                    + ". Press Enter when ready.");
+            getInput().nextLine();
+            displayBoard();
+            currentPlayer.takeTurn(this);
+        }
     }
-    
+
+
     /**
      * Prints winning message with winner's name unless no moves can be made.
      */
@@ -222,7 +264,10 @@ public class Game
         {
             int player1Points = player1.getHandValue();
             int player2Points = player2.getHandValue();
-            System.out.println("No more moves. " + player1.getName() + " has " + player1Points + " points; " + player2.getName() + " has " + player2Points + " points.");
+            System.out.println(
+                "No more moves. " + player1.getName() + " has " + player1Points
+                    + " points; " + player2.getName() + " has " + player2Points
+                    + " points.");
 
             if (player1Points < player2Points)
             {
@@ -239,10 +284,12 @@ public class Game
         }
     }
 
+
     /**
      * Main method that creates and runs Game class.
+     * 
      * @param args
-     *          arguments
+     *            arguments
      */
     public static void main(String[] args)
     {
