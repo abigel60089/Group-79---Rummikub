@@ -50,7 +50,20 @@ public class Tile
 
     public String toString()
     {
-        String tile = color + number; // we should update this to handle jokers
-        return tile;
+        if(number == 14) {
+            return def + "joker";
+        }
+        switch(color) {
+            case "black":
+                return "[" + number + "]";
+            case "red":
+                return red + "[" + number + "]" + def;
+            case "yellow":
+                return yellow + "[" + number + "]" + def;
+            case "blue":
+                return blue + "[" + number + "]" + def;
+            default:
+                return "(invalid color) [" + number + "]";
+        }
     }
 }

@@ -170,6 +170,7 @@ public class Player
 
             if (type.equals("g"))
             {
+
                 s = new Group();
             }
             else if (type.equals("r"))
@@ -202,22 +203,25 @@ public class Player
                 {
                     int pos = Integer.parseInt(p);
 
-                    if (pos < 0 || pos >= hand.size())
+                    if (pos < 0 || pos > hand.size())
                     {
-                        System.out
-                            .println("Position " + pos + " is out of range.");
-                        return;
-                    }
+                        if (pos < 0 || pos >= hand.size())
+                        {
+                            System.out.println(
+                                "Position " + pos + " is out of range.");
+                            return;
+                        }
 
-                    if (chosen[pos])
-                    {
-                        System.out
-                            .println("Position " + pos + " was entered twice.");
-                        return;
-                    }
+                        if (chosen[pos])
+                        {
+                            System.out.println(
+                                "Position " + pos + " was entered twice.");
+                            return;
+                        }
 
-                    chosen[pos] = true;
-                    s.addTile(hand.get(pos));
+                        chosen[pos] = true;
+                        s.addTile(hand.get(pos));
+                    }
                 }
             }
             catch (NumberFormatException e)
