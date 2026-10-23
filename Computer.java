@@ -1,3 +1,4 @@
+
 import java.util.*;
 
 public class Computer
@@ -7,7 +8,7 @@ public class Computer
 
     public Computer(String name)
     {
-        super(name);
+        super("Computer");
     }
 
 
@@ -18,68 +19,137 @@ public class Computer
         {
             throw new IllegalArgumentException("Game cannot be null");
         }
+
+        displayHand();
         findMoves();
-        if (!currMoves.isEmpty())
+        LinkedChain<Set> plays = new LinkedChain<Set>();
+        boolean[] used = new boolean[hand.size()];
+        int totalPoints = 0;
+        Set[] moves = currMoves.toArray(new Set[currMoves.size()]);
+        Arrays.sort(moves, Comparator.comparingInt(Set::getPoints).reversed());
+
+        for (Set set : moves)
         {
-            LinkedChain<Set> plays = new LinkedChain<Set>();
-            Set[] moves = currMoves.toArray(new Set[currMoves.size()]);
-            Arrays.sort(moves, Comparator.comparingInt(Set::getPoints));
-            Tile[] handArray = hand.toArray(new Tile[hand.size()]);
-            boolean[] used = new boolean[hand.size()];
-            Tile needed = null;
-            boolean[] justUsed;
-            boolean wasFound = false;
+            boolean[] justUsed = new boolean[hand.size()];
             boolean complete = true;
-            for(Set set : moves) {
-                justUsed = new boolean[hand.size()];
-                for(int j=0; j < set.size(); j++) {
-                    needed = set.get(j);
-                    for(int i=0; i < hand.size(); i++) {
-                        if (!used[i] && needed.equals(handArray[i]))
-                        {
-                            used[i] = true;
-                            justUsed[i] = true;
-                            wasFound = true;
-                            break;
-                        }
-                    }
-                    if(!wasFound) {
-                        for(int i=0; i < hand.size(); i++) {
-                            if(justUsed[i]) {
-                                used[i] = false;
-                            }
-                        }
-                        complete = false;
+
+            for (int j = 0; j < set.size(); j++)
+            {
+                Tile needed = set.get(j);
+                boolean found = false;
+
+                for (int i = 0; i < hand.size(); i++)
+                {
+                    if (!used[i] && needed.equals(hand.get(i)))
+                    {
+                        used[i] = true;
+                        justUsed[i] = true;
+                        found = true;
                         break;
                     }
                 }
-                if(complete) {
-                    plays.add(set);
+
+                if (!found)
+                {
+                    complete = false;
+                    break;
                 }
-                complete = true;
             }
-            int totalPoints = 0;
-            for(int i=0; i < plays.size(); i++) {
-                totalPoints += plays.get(i).getPoints();
-            }
-            if (hasInitialMeld || (totalPoints >= INITIAL_MELD_POINTS))
+
+            if (complete)
             {
-                for(int i=0; i < plays.size(); i++) {
-                    g.addSetToTable(plays.get(i));
-                }
-                for(int i = hand.size() - 1; i >= 0; i--) {
-                    if(used[i]) {
-                        hand.remove(hand.get(i));
+                plays.add(set);
+                totalPoints += set.getPoints();
+            }
+            else
+            {
+                for (int i = 0; i < used.length; i++)
+                {
+                    if (justUsed[i])
+                    {
+                        used[i] = false;
                     }
                 }
-                hasInitialMeld = true;
-                playedThisTurn = true;
             }
         }
+
+        if (!plays.isEmpty()
+            && (hasInitialMeld || totalPoints >= INITIAL_MELD_POINTS)
+            && playSets(plays))
+        {
+            for (int i = 0; i < plays.size(); i++)
+            {
+                g.addSetToTable(plays.get(i));
+            }
+        }
+
         endTurn(g);
         currMoves.clear();
         sortHand();
         System.out.println(name + " has " + hand.size() + " tiles.");
+    }
+
+
+    public boolean canPlay()
+    {
+        currMoves.clear();
+        findMoves();
+
+        Set[] moves = currMoves.toArray(new Set[currMoves.size()]);
+        Arrays.sort(moves, Comparator.comparingInt(Set::getPoints).reversed());
+
+        boolean[] used = new boolean[hand.size()];
+        int totalPoints = 0;
+        boolean foundPlay = false;
+
+        for (Set set : moves)
+        {
+            boolean[] justUsed = new boolean[hand.size()];
+            boolean complete = true;
+
+            for (int j = 0; j < set.size(); j++)
+            {
+                Tile needed = set.get(j);
+                boolean found = false;
+
+                for (int i = 0; i < hand.size(); i++)
+                {
+                    if (!used[i] && needed.equals(hand.get(i)))
+                    {
+                        used[i] = true;
+                        justUsed[i] = true;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    complete = false;
+                    break;
+                }
+            }
+
+            if (complete)
+            {
+                foundPlay = true;
+                totalPoints += set.getPoints();
+            }
+            else
+            {
+                for (int i = 0; i < used.length; i++)
+                {
+                    if (justUsed[i])
+                    {
+                        used[i] = false;
+                    }
+                }
+            }
+        }
+
+        currMoves.clear();
+        return foundPlay
+            && (hasInitialMeld || totalPoints >= INITIAL_MELD_POINTS);
     }
 
 

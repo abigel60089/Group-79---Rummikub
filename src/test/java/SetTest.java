@@ -27,6 +27,10 @@ public class SetTest
         assertSame(first, set.get(0));
         assertSame(second, set.get(1));
         assertSame(third, set.get(2));
-        assertEquals("| red5 | red6 | red7 |", set.toString());
+        assertEquals(
+            "| " + Tile.red + "[5]" + Tile.def + " | "
+                + Tile.red + "[6]" + Tile.def + " | "
+                + Tile.red + "[7]" + Tile.def + " |",
+            set.toString());
     }
 }
