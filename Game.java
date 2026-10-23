@@ -167,6 +167,14 @@ public class Game
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Main method handling overall gameplay, for if player is going against
+     * computer.
+     * 
+     * @param againstComputer
+     *            true if player is going against computer
+     */
     public void play(boolean againstComputer)
     {
         vsCom = againstComputer;
