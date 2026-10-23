@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 
 public class Computer
     extends Player
@@ -7,7 +7,7 @@ public class Computer
 
     public Computer(String name)
     {
-        super(name);
+        super("Computer");
     }
 
 
@@ -18,73 +18,28 @@ public class Computer
         {
             throw new IllegalArgumentException("Game cannot be null");
         }
+
+        displayHand();
         findMoves();
-        if (!currMoves.isEmpty())
-        {
-            LinkedChain<Set> plays = new LinkedChain<Set>();
-            Set[] moves = currMoves.toArray(new Set[currMoves.size()]);
-            Arrays.sort(moves, Comparator.comparingInt(Set::getPoints));
-            Tile[] handArray = hand.toArray(new Tile[hand.size()]);
-            boolean[] used = new boolean[hand.size()];
-            Tile needed = null;
-            boolean[] justUsed;
-            boolean wasFound = false;
-            boolean complete = true;
-            for(Set set : moves) {
-                justUsed = new boolean[hand.size()];
-                for(int j=0; j < set.size(); j++) {
-                    needed = set.get(j);
-                    for(int i=0; i < hand.size(); i++) {
-                        if (!used[i] && needed.equals(handArray[i]))
-                        {
-                            used[i] = true;
-                            justUsed[i] = true;
-                            wasFound = true;
-                            break;
-                        }
-                    }
-                    if(!wasFound) {
-                        for(int i=0; i < hand.size(); i++) {
-                            if(justUsed[i]) {
-                                used[i] = false;
-                            }
-                        }
-                        complete = false;
-                        break;
-                    }
-                }
-                if(complete) {
-                    plays.add(set);
-                }
-                complete = true;
-            }
-            int totalPoints = 0;
-            for(int i=0; i < plays.size(); i++) {
-                totalPoints += plays.get(i).getPoints();
-            }
-            if (hasInitialMeld || (totalPoints >= INITIAL_MELD_POINTS))
-            {
-                for(int i=0; i < plays.size(); i++) {
-                    g.addSetToTable(plays.get(i));
-                }
-                for(int i = hand.size() - 1; i >= 0; i--) {
-                    if(used[i]) {
-                        hand.remove(hand.get(i));
-                    }
-                }
-                hasInitialMeld = true;
-                playedThisTurn = true;
+        if(!currMoves.isEmpty()) {
+            if(hasInitialMeld) {
+                //still working on this
+            } else {
+                //still working on this
             }
         }
+
         endTurn(g);
         currMoves.clear();
         sortHand();
         System.out.println(name + " has " + hand.size() + " tiles.");
     }
-
-
-    private void findMoves()
-    {
+    
+    public boolean canPlay() {
+        return false;
+    }
+    
+    private void findMoves(){
         ArrayList<String> colors = new ArrayList<String>();
         ArrayList<Integer> numbers = new ArrayList<Integer>();
         String col = "";

@@ -1,3 +1,4 @@
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -163,33 +164,11 @@ public class Game
      */
     public void play()
     {
-        play(false);
-    }
-
-
-    // ----------------------------------------------------------
-    /**
-     * Main method handling overall gameplay, for if player is going against
-     * computer.
-     * 
-     * @param againstComputer
-     *            true if player is going against computer
-     */
-    public void play(boolean againstComputer)
-    {
-        vsCom = againstComputer;
         System.out.println("Welcome to Rummikub!");
-        System.out.print("Enter Player 1's name: ");
+        System.out.print("Enter your name: ");
         player1 = new Player(getInput().nextLine());
-        if (vsCom)
-        {
-            player2 = new Computer(player1.getName() + "'s rival");
-        }
-        else
-        {
-            System.out.print("Enter Player 2's name: ");
-            player2 = new Player(getInput().nextLine());
-        }
+        System.out.print("Enter Player 2's name: ");
+        player2 = new Player(getInput().nextLine());
         dealHands();
 
         while (true)
@@ -198,7 +177,6 @@ public class Game
             int player2Before = player2.getHand().size();
 
             System.out.println();
-            displayBoard();
             takePlayerTurn(player1);
             if (checkWinner())
             {
@@ -206,7 +184,6 @@ public class Game
             }
 
             System.out.println();
-            displayBoard();
             takePlayerTurn(player2);
             if (checkWinner())
             {
@@ -232,25 +209,11 @@ public class Game
      */
     private void takePlayerTurn(Player currentPlayer)
     {
-        if (vsCom)
-        {
-            if (currentPlayer == player1)
-            {
-                displayBoard();
-            }
-            currentPlayer.takeTurn(this);
-        }
-        else
-        {
-            System.out.println(
-                "Pass the screen to " + currentPlayer.getName()
-                    + ". Press Enter when ready.");
-            getInput().nextLine();
-            displayBoard();
-            currentPlayer.takeTurn(this);
-        }
+        System.out.println("Pass the screen to " + currentPlayer.getName() + ". Press Enter when ready.");
+        getInput().nextLine();
+        displayBoard();
+        currentPlayer.takeTurn(this);
     }
-
 
     /**
      * Prints winning message with winner's name unless no moves can be made.
