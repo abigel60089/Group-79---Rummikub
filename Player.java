@@ -488,21 +488,22 @@ public class Player
         return true;
     }
 
-
-    private void removeTileAt(int index)
-    {
-        LinkedChain<Tile> newHand = new LinkedChain<Tile>();
-
-        for (int i = 0; i < hand.size(); i++)
-        {
-            if (i != index)
-            {
-                newHand.addToEnd(hand.get(i));
-            }
-        }
-
-        hand = newHand;
-    }
+    //kept in case someone wants to revert
+//
+//    private void removeTileAt(int index)
+//    {
+//        LinkedChain<Tile> newHand = new LinkedChain<Tile>();
+//
+//        for (int i = 0; i < hand.size(); i++)
+//        {
+//            if (i != index)
+//            {
+//                newHand.addToEnd(hand.get(i));
+//            }
+//        }
+//
+//        hand = newHand;
+//    }
 
 
     public boolean addTileToTableSet(Game game, int handIndex, int tableIndex)
@@ -550,7 +551,7 @@ public class Player
             return false;
         }
 
-        removeTileAt(handIndex);
+        hand.remove(tile);
         playedThisTurn = true;
         return true;
     }
