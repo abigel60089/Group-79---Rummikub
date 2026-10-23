@@ -166,7 +166,7 @@ public class Game
 
         for (int i = 0; i < table.size(); i++)
         {
-            System.out.println("  [Set " + i + "] " + table.get(i));
+            System.out.println("   Set " + i + "  " + table.get(i));
         }
     }
 

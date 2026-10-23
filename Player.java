@@ -535,9 +535,12 @@ public class Player
 
         // Make a copy so an invalid move doesn't change
         // the original table set.
+        
         Set updated = original.copy();
+        
 
         updated.addTile(tile);
+        
 
         if (!updated.isValid())
         {
@@ -592,7 +595,9 @@ public class Player
         else
         {
             System.out.println("Tile added successfully!");
+            g.displayBoard();
         }
+        
     }
 
 
