@@ -57,9 +57,30 @@ public class Computer
                     plays.add(set);
                 }
                 complete = true;
+                System.out.println(hand);//start of big debug thingy
+                System.out.print("[");
+                for(boolean dih : used) {
+                    if(dih) {
+                        System.out.print("tru, ");
+                    } else {
+                        System.out.print("fal, ");
+                    }
+                }
+                System.out.println("]");
+                System.out.print("[");
+                for(boolean dih : justUsed) {
+                    if(dih) {
+                        System.out.print("tru, ");
+                    } else {
+                        System.out.print("fal, ");
+                    }
+                }
+                System.out.println("]");
+                System.out.println(set);//end of big debug thingy
             }
             int totalPoints = 0;
             for(int i=0; i < plays.size(); i++) {
+                System.out.println(plays.get(i));//debug thingy
                 totalPoints += plays.get(i).getPoints();
             }
             if (hasInitialMeld || (totalPoints >= INITIAL_MELD_POINTS))

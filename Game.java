@@ -138,6 +138,7 @@ public class Game
      * 
      * @return tile to remove
      */
+
     public Tile drawFromPile()
     {
         return drawPile.remove();
@@ -150,6 +151,7 @@ public class Game
      * 
      * @return scanner
      */
+
     public Scanner getInput()
     {
         return scanner;
@@ -198,7 +200,6 @@ public class Game
             int player2Before = player2.getHand().size();
 
             System.out.println();
-            displayBoard();
             takePlayerTurn(player1);
             if (checkWinner())
             {
@@ -206,7 +207,6 @@ public class Game
             }
 
             System.out.println();
-            displayBoard();
             takePlayerTurn(player2);
             if (checkWinner())
             {
@@ -232,23 +232,16 @@ public class Game
      */
     private void takePlayerTurn(Player currentPlayer)
     {
-        if (vsCom)
+        if (!vsCom)
         {
-            if (currentPlayer == player1)
-            {
-                displayBoard();
-            }
-            currentPlayer.takeTurn(this);
-        }
-        else
-        {
+            displayBoard();
             System.out.println(
                 "Pass the screen to " + currentPlayer.getName()
                     + ". Press Enter when ready.");
             getInput().nextLine();
-            displayBoard();
-            currentPlayer.takeTurn(this);
         }
+        displayBoard();
+        currentPlayer.takeTurn(this);
     }
 
 
@@ -302,6 +295,6 @@ public class Game
     public static void main(String[] args)
     {
         Game game = new Game();
-        game.play();
+        game.play(true);
     }
 }
