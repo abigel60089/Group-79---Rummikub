@@ -1,19 +1,38 @@
-public class Run extends Set
+// -------------------------------------------------------------------------
+/**
+ * Subclass of Set that creates a new Run object that holds tiles.
+ */
+public class Run
+    extends Set
 {
     private static final int JOKER = 14;
 
+    // ----------------------------------------------------------
+    /**
+     * Create a new Run object.
+     */
     public Run()
     {
         super();
     }
 
 
+    /**
+     * Checks if a tile is a joker.
+     * 
+     * @return true if a tile is a joker and false if not
+     */
     private boolean isJoker(Tile t)
     {
         return t.getNumber() == JOKER;
     }
 
 
+    /**
+     * Returns index of tile if not a joker.
+     * 
+     * @return index of tile or -1 if tile is a joker
+     */
     private int firstRealTile()
     {
         for (int i = 0; i < tiles.size(); i++)
@@ -143,6 +162,11 @@ public class Run extends Set
     }
 
 
+    /**
+     * Checks if tile should go to front of run
+     * 
+     * @return true if tile is not joker and is before start number
+     */
     private boolean goesOnFront(Tile t)
     {
         int t1 = firstRealTile();

@@ -1,14 +1,27 @@
+// -------------------------------------------------------------------------
+/**
+ * Subclass of Set that creates a new Group object that holds tiles.
+ */
 public class Group
     extends Set
 {
     private static final int JOKER = 14;
 
+    // ----------------------------------------------------------
+    /**
+     * Create a new Group object.
+     */
     public Group()
     {
         super();
     }
 
 
+    /**
+     * Checks if a tile is a joker.
+     * 
+     * @return true if a tile is a joker and false if not
+     */
     private boolean isJoker(Tile t)
     {
         return t.getNumber() == JOKER;
@@ -120,8 +133,7 @@ public class Group
                 return tiles.get(i).getNumber() * tiles.size();
             }
         }
-        return 0; // now every tile counts as the group's number, including the
-                  // jokers
+        return 0;
     }
 
-} // end of group sub-class
+}

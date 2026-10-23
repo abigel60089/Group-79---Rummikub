@@ -21,16 +21,22 @@ public class Player
     /** Points needed for a player's first play (the initial meld). */
     public static final int INITIAL_MELD_POINTS = 30;
 
-    // display name
+    /**
+     * display name
+     */
     protected String name;
 
-    // tiles
+    /**
+     * tiles in player's hand
+     */
     protected LinkedChain<Tile> hand;
 
     /** True once the player has made their first play worth 30+ points. */
     protected boolean hasInitialMeld;
 
-    // <1 set during this turn
+    /**
+     * <1 set during this turn
+     */
     protected boolean playedThisTurn;
 
     // =====================================================================

@@ -1,6 +1,11 @@
 import java.util.Random;
 import java.util.Scanner;
 
+// -------------------------------------------------------------------------
+/**
+ *  Main class that creates Game object and runs Rummikub game.
+ * 
+ */
 public class Game
 {
     private LinkedChain<Tile> drawPile = new LinkedChain<Tile>();
@@ -9,6 +14,10 @@ public class Game
     private Player player2;
     private Scanner scanner;
 
+    // ----------------------------------------------------------
+    /**
+     * Create a new Game object.
+     */
     public Game()
     {
         scanner = new Scanner(System.in);
@@ -16,7 +25,9 @@ public class Game
         shuffleDrawPile();
     }
 
-
+    /**
+     * Creates draw pile with random tiles.
+     */
     private void createTiles()
     {
         String[] colors = { "black", "red", "yellow", "blue" };
@@ -32,7 +43,11 @@ public class Game
         drawPile.add(new Tile(14, "black"));
     }
 
-
+    
+    // ----------------------------------------------------------
+    /**
+     * Shuffles order of tiles in draw pile to make random.
+     */
     public void shuffleDrawPile()
     {
         Tile[] original = drawPile.toArray(new Tile[drawPile.size()]);
@@ -48,6 +63,12 @@ public class Game
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * After player plays set, set gets added to table.
+     * @param set
+     *          set of tiles played
+     */
     public void addSetToTable(Set set)
     {
         if (set != null && set.isValid())
@@ -61,6 +82,10 @@ public class Game
         }
     }
     
+    // ----------------------------------------------------------
+    /**
+     * Prints out all sets on table.
+     */
     public void displayBoard()
     {
         System.out.println("Table:");
@@ -76,12 +101,21 @@ public class Game
         }
     }
 
+    // ----------------------------------------------------------
+    /**
+     * Checks if either player has won and gotten rid of all tiles.
+     * @return true if player 1 or player 2 won
+     */
     public boolean checkWinner()
     {
         return player1 != null && player1.hasWon()
             || player2 != null && player2.hasWon();
     }
 
+    // ----------------------------------------------------------
+    /**
+     * Gives each player 14 random tiles from the draw pile.
+     */
     public void dealHands()
     {
         for (int i = 0; i < 14; i++)
@@ -91,16 +125,31 @@ public class Game
         }
     }
 
+    // ----------------------------------------------------------
+    /**
+     * Removes tile from draw pile.
+     * @return tile to remove
+     */
     public Tile drawFromPile()
     {
         return drawPile.remove();
     }
 
+    // ----------------------------------------------------------
+    /**
+     * Returns scanner for user input
+     * @return scanner
+     */
     public Scanner getInput()
     {
         return scanner;
     }
 
+    // ----------------------------------------------------------
+    /**
+     * Main method handling overall gameplay, starting game and taking turns
+     * until one player wins.
+     */
     public void play()
     {
         System.out.println("Welcome to Rummikub!");
@@ -142,6 +191,9 @@ public class Game
         announceWinner();
     }
 
+    /**
+     * Switches turn between players.
+     */
     private void takePlayerTurn(Player currentPlayer)
     {
         System.out.println("Pass the screen to " + currentPlayer.getName() + ". Press Enter when ready.");
@@ -149,7 +201,10 @@ public class Game
         displayBoard();
         currentPlayer.takeTurn(this);
     }
-
+    
+    /**
+     * Prints winning message with winner's name unless no moves can be made.
+     */
     private void announceWinner()
     {
         System.out.println();
@@ -184,6 +239,11 @@ public class Game
         }
     }
 
+    /**
+     * Main method that creates and runs Game class.
+     * @param args
+     *          arguments
+     */
     public static void main(String[] args)
     {
         Game game = new Game();
