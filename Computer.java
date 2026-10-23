@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+
+import java.util.*;
 
 public class Computer
     extends Player
@@ -21,11 +22,64 @@ public class Computer
 
         displayHand();
         findMoves();
-        if(!currMoves.isEmpty()) {
-            if(hasInitialMeld) {
-                //still working on this
-            } else {
-                //still working on this
+        LinkedChain<Set> plays = new LinkedChain<Set>();
+        boolean[] used = new boolean[hand.size()];
+        int totalPoints = 0;
+        Set[] moves = currMoves.toArray(new Set[currMoves.size()]);
+        Arrays.sort(moves, Comparator.comparingInt(Set::getPoints).reversed());
+
+        for (Set set : moves)
+        {
+            boolean[] justUsed = new boolean[hand.size()];
+            boolean complete = true;
+
+            for (int j = 0; j < set.size(); j++)
+            {
+                Tile needed = set.get(j);
+                boolean found = false;
+
+                for (int i = 0; i < hand.size(); i++)
+                {
+                    if (!used[i] && needed.equals(hand.get(i)))
+                    {
+                        used[i] = true;
+                        justUsed[i] = true;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    complete = false;
+                    break;
+                }
+            }
+
+            if (complete)
+            {
+                plays.add(set);
+                totalPoints += set.getPoints();
+            }
+            else
+            {
+                for (int i = 0; i < used.length; i++)
+                {
+                    if (justUsed[i])
+                    {
+                        used[i] = false;
+                    }
+                }
+            }
+        }
+
+        if (!plays.isEmpty()
+            && (hasInitialMeld || totalPoints >= INITIAL_MELD_POINTS)
+            && playSets(plays))
+        {
+            for (int i = 0; i < plays.size(); i++)
+            {
+                g.addSetToTable(plays.get(i));
             }
         }
 
@@ -34,12 +88,73 @@ public class Computer
         sortHand();
         System.out.println(name + " has " + hand.size() + " tiles.");
     }
-    
-    public boolean canPlay() {
-        return false;
+
+
+    public boolean canPlay()
+    {
+        currMoves.clear();
+        findMoves();
+
+        Set[] moves = currMoves.toArray(new Set[currMoves.size()]);
+        Arrays.sort(moves, Comparator.comparingInt(Set::getPoints).reversed());
+
+        boolean[] used = new boolean[hand.size()];
+        int totalPoints = 0;
+        boolean foundPlay = false;
+
+        for (Set set : moves)
+        {
+            boolean[] justUsed = new boolean[hand.size()];
+            boolean complete = true;
+
+            for (int j = 0; j < set.size(); j++)
+            {
+                Tile needed = set.get(j);
+                boolean found = false;
+
+                for (int i = 0; i < hand.size(); i++)
+                {
+                    if (!used[i] && needed.equals(hand.get(i)))
+                    {
+                        used[i] = true;
+                        justUsed[i] = true;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    complete = false;
+                    break;
+                }
+            }
+
+            if (complete)
+            {
+                foundPlay = true;
+                totalPoints += set.getPoints();
+            }
+            else
+            {
+                for (int i = 0; i < used.length; i++)
+                {
+                    if (justUsed[i])
+                    {
+                        used[i] = false;
+                    }
+                }
+            }
+        }
+
+        currMoves.clear();
+        return foundPlay
+            && (hasInitialMeld || totalPoints >= INITIAL_MELD_POINTS);
     }
-    
-    private void findMoves(){
+
+
+    private void findMoves()
+    {
         ArrayList<String> colors = new ArrayList<String>();
         ArrayList<Integer> numbers = new ArrayList<Integer>();
         String col = "";
