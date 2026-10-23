@@ -40,7 +40,7 @@ public class ComputerTest
      */
     public void setUp()
     {
-        cpu = new Computer("CPU");
+        cpu = new Computer();
     }
 
 
@@ -56,7 +56,7 @@ public class ComputerTest
     public void testConstructor()
         throws Exception
     {
-        assertEquals("CPU", cpu.name);
+
         assertEquals(0, cpu.hand.size());
         assertFalse(cpu.hasInitialMeld);
         assertTrue(currMoves(cpu).isEmpty());

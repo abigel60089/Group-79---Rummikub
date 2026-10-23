@@ -6,6 +6,10 @@ public class Computer
 {
     private LinkedChain<Set> currMoves = new LinkedChain<Set>();
 
+    // ----------------------------------------------------------
+    /**
+     * Create a new Computer object.
+     */
     public Computer()
     {
         super("Computer");
