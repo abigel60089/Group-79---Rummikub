@@ -26,6 +26,6 @@ public class TileTest
 
         assertEquals(12, tile.getNumber());
         assertEquals("yellow", tile.getColor());
-        assertEquals("yellow12", tile.toString());
+        assertEquals(Tile.yellow + "[12]" + Tile.def, tile.toString());
     }
 }

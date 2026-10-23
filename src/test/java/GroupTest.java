@@ -44,4 +44,37 @@ public class GroupTest
         assertTrue(group.isValid());
         assertEquals(40, group.getPoints());
     }
+
+
+    @Test
+    public void rejectsAllJokers()
+    {
+        Group group = new Group();
+        group.addTile(new Tile(14, "black"));
+        group.addTile(new Tile(14, "red"));
+        group.addTile(new Tile(14, "blue"));
+
+        assertFalse(group.isValid());
+        assertEquals(0, group.getPoints());
+    }
+
+
+    @Test
+    public void reportsNoPointsForEmptyGroup()
+    {
+        assertEquals(0, new Group().getPoints());
+    }
+
+
+    @Test
+    public void allowsJokerInFourTileGroup()
+    {
+        Group group = new Group();
+        group.addTile(new Tile(1, "black"));
+        group.addTile(new Tile(14, "red"));
+        group.addTile(new Tile(1, "red"));
+
+        assertTrue(group.canAdd(new Tile(14, "blue")));
+        assertTrue(group.isValid());
+    }
 }
