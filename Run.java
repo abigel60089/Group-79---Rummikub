@@ -160,6 +160,19 @@ public class Run
         float sum = (tiles.size() / (float)2) * (first + last);
         return Math.round(sum);
     }
+    
+    @Override
+    public Set copy()
+    {
+        Run copy = new Run();
+
+        for (int i = 0; i < tiles.size(); i++)
+        {
+            copy.addTile(tiles.get(i));
+        }
+
+        return copy;
+    }
 
 
     /**

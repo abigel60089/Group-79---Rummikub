@@ -63,6 +63,71 @@ public class Game
             original[i] = null;
         }
     }
+    
+
+    /**
+     * Gets the number of sets currently on the table.
+     *
+     * @return the number of table sets
+     */
+    public int getTableSize()
+    {
+        return table.size();
+    }
+
+
+    /**
+     * Gets a set from the table by its zero-based index.
+     *
+     * @param index 
+     *          the index of the set
+     * @return the set at that index, or null if out of range
+     */
+    public Set getTableSet(int index)
+    {
+        if (index < 0 || index >= table.size())
+        {
+            return null;
+        }
+    
+        return table.get(index);
+    }
+    
+    
+    /**
+     * Replaces a set on the table.
+     *
+     * @param index 
+     *          the index of the set to replace
+     * @param replacement 
+     *          the new set
+     * @return true if the replacement succeeds
+     */
+    public boolean replaceTableSet(int index, Set replacement)
+    {
+        if (index < 0 || index >= table.size()
+            || replacement == null || !replacement.isValid())
+        {
+            return false;
+        }
+
+        LinkedChain<Set> newTable = new LinkedChain<Set>();
+
+        for (int i = 0; i < table.size(); i++)
+        {
+            if (i == index)
+            {
+                newTable.addToEnd(replacement);
+            }
+            else
+            {
+                newTable.addToEnd(table.get(i));
+            }
+        }
+
+        table = newTable;
+        return true;
+    }
 
 
     // ----------------------------------------------------------
@@ -101,7 +166,7 @@ public class Game
 
         for (int i = 0; i < table.size(); i++)
         {
-            System.out.println("  " + table.get(i));
+            System.out.println("  [" + i + "] " + table.get(i));
         }
     }
 

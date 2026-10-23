@@ -135,5 +135,18 @@ public class Group
         }
         return 0;
     }
+    
+    @Override
+    public Set copy()
+    {
+        Group copy = new Group();
+
+        for (int i = 0; i < tiles.size(); i++)
+        {
+            copy.addTile(tiles.get(i));
+        }
+
+        return copy;
+    }
 
 }

@@ -59,6 +59,9 @@ public abstract class Set
      * @return point value of the set
      */
     public abstract int getPoints();
+    
+    
+    public abstract Set copy();
 
 
     // ----------------------------------------------------------

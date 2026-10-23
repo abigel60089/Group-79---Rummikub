@@ -130,24 +130,53 @@ public class Player
         {
             System.out.println();
             displayHand();
-            System.out.println("1) Play a set   2) Sort hand   3) End turn");
-            System.out.print("Choice: ");
-            String choice = in.nextLine().trim();
-
-            switch (choice)
+            if (hasInitialMeld)
             {
-                case "1":
-                    promptAndPlaySet(g, in);
-                    break;
-                case "2":
-                    sortHand();
-                    break;
-                case "3":
-                    turnOver = true;
-                    break;
-                default:
-                    System.out.println("Please enter 1, 2, or 3.");
+                System.out.println(
+                    "1) Play a set   2) Add tile to existing set   "
+                    + "3) Sort hand  4) End turn");
+                System.out.print("Choice: ");
+                String choice = in.nextLine().trim();
+                
+                switch (choice)
+                {
+                    case "1":
+                        promptAndPlaySet(g, in);
+                        break;
+                    case "2":
+                        promptAddTileToTable(g, in);
+                    case "3":
+                        sortHand();
+                        break;
+                    case "4":
+                        turnOver = true;
+                        break;
+                    default:
+                        System.out.println("Please enter 1, 2, 3, or 4.");
+                }
+            } else {
+                System.out.println("1) Play a set   2) Sort hand   "
+                    + "3) End turn");
+                
+                System.out.print("Choice: ");
+                String choice = in.nextLine().trim();
+                
+                switch (choice)
+                {
+                    case "1":
+                        promptAndPlaySet(g, in);
+                        break;
+                    case "2":
+                        sortHand();
+                        break;
+                    case "3":
+                        turnOver = true;
+                        break;
+                    default:
+                        System.out.println("Please enter 1, 2, or 3.");
+                }
             }
+            
         }
         endTurn(g);
     }
@@ -457,6 +486,112 @@ public class Player
         hasInitialMeld = true;
         playedThisTurn = true;
         return true;
+    }
+
+
+    private void removeTileAt(int index)
+    {
+        LinkedChain<Tile> newHand = new LinkedChain<Tile>();
+
+        for (int i = 0; i < hand.size(); i++)
+        {
+            if (i != index)
+            {
+                newHand.addToEnd(hand.get(i));
+            }
+        }
+
+        hand = newHand;
+    }
+
+
+    public boolean addTileToTableSet(Game game, int handIndex, int tableIndex)
+    {
+        if (!hasInitialMeld)
+        {
+            System.out.println(
+                "You must complete your initial turn first.");
+            return false;
+        }
+        
+        if (handIndex < 0 || handIndex >= hand.size())
+        {
+            return false;
+        }
+        
+        if (tableIndex < 0 || tableIndex >= game.getTableSize())
+        {
+            return false;
+        }
+        
+        Tile tile = hand.get(handIndex);
+        Set original = game.getTableSet(tableIndex);
+
+        if (original == null)
+        {
+            return false;
+        }
+
+        // Make a copy so an invalid move doesn't change
+        // the original table set.
+        Set updated = original.copy();
+
+        updated.addTile(tile);
+
+        if (!updated.isValid())
+        {
+            System.out.println("That tile cannot be added to this set.");
+            return false;
+        }
+
+        if (!game.replaceTableSet(tableIndex, updated))
+        {
+            System.out.println("Table not able to be updated.");
+            return false;
+        }
+
+        removeTileAt(handIndex);
+        playedThisTurn = true;
+        return true;
+    }
+    
+    
+    private void promptAddTileToTable(Game g, Scanner in)
+    {
+        System.out.print("Enter hand tile index: ");
+
+        int handIndex;
+        try
+        {
+            handIndex = Integer.parseInt(in.nextLine().trim());
+        }
+        catch (NumberFormatException e)
+        {
+            System.out.println("Please enter a valid number.");
+            return;
+        }
+
+        System.out.print("Enter table set index: ");
+
+        int tableSetIndex;
+        try
+        {
+            tableSetIndex = Integer.parseInt(in.nextLine().trim());
+        }
+        catch (NumberFormatException e)
+        {
+            System.out.println("Please enter a valid number.");
+            return;
+        }
+
+        if (!addTileToTableSet(g, handIndex, tableSetIndex))
+        {
+            System.out.println("Could not add that tile.");
+        }
+        else
+        {
+            System.out.println("Tile added successfully!");
+        }
     }
 
 
