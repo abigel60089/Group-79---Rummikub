@@ -53,13 +53,13 @@ Who does what
 | Class or test file | Who worked on it | How |
 | --- | --- | --- |
 
-| `Game.java` | Sarah, Aaron, Abigel| Aaron wrote `createTiles()` and `shuffleDrawPile()`. Sarah wrote `checkWinner`, `addSetToTable`, and `displayBoard`. Abigel wrote the other methods: `announceWinner`, `takePlayerTurn`, Abigel used GenAI assistance to adapt the game to the two-player prototype and help out with play method. |
+| `Game.java` | Sarah, Aaron, Abigel| Aaron wrote `createTiles()` and `shuffleDrawPile()`. Sarah wrote `checkWinner` and methods related to creating, editing, and displaying table. Abigel wrote the other methods: `announceWinner`, `takePlayerTurn`, Abigel used GenAI assistance to adapt the game to the two-player prototype and help out with play method. |
 
 | `Group.java` | Abigel, Aaron | Aaron wrote getPoints() method. Abigel wrote rest of the class|
 
 | `LinkedChain.java` | Did not get modified |
 
-| `Player.java` | Enoch, Aaron | Enoch wrote everything; Aaron reviewed it and fixed bugs.|
+| `Player.java` | Enoch, Aaron, Sarah | Enoch wrote everything; Aaron reviewed it and fixed bugs; Sarah added and edited methods to fix playing sets and adding tiles to existing sets.|
 
 | `Run.java` | Abigel, Aaron | Aaron wrote getPoints() method. Abigel wrote the rest of the class |
 
@@ -87,7 +87,7 @@ Who does what
 
 ### GenAI usage
 
-GenAI assistance was used to help out with play method, and generate most of the JUnit tests. Team members have reviewed and verified AI-assisted changes.
+GenAI assistance was used to help out with play method and debugging other methods, and generate most of the JUnit tests. Team members have reviewed and verified AI-assisted changes.
 
 ### System Diagram
 https://docs.google.com/document/d/16Dh-sPuOrqSh66Iml23WTMzUySfWBzUC3cahu9CiUUI/edit?usp=sharing
