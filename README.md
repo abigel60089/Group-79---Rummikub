@@ -15,9 +15,9 @@ javac *.java
 java Game
 ```
 
-Enter two player names, then take turns using the numbered hand positions when asked to play a group or run. To take turns, pass the screen between players and avoid looking at the other player's hand. An initial meld can contain multiple sets whose points add up to at least 30. On later turns, play a set or end the turn to draw.
+Enter your (the player) name and take turns playing against the computer. An initial meld can contain multiple sets whose points add up to at least 30. On later turns, play a set or end the turn to draw.
 
-Because this is a basic version, it does not yet support rearranging tiles already on the table.
+Because this is a basic version, it does not yet support rearranging tiles already on the table. It does however allow for adding to an existing set.
 
 ## Running the tests
 
@@ -33,12 +33,10 @@ What changed in the LinkedChain?: Despite these changes, the given LinkedChain c
 
 What happened to the unknowns? We figured out some things that we didn't know how to do initially, such as the GUI and the game rules by researching and talking over some of the past things that were done.
 
-What doesn't work yet? We still haven't figured out how to get the computer to play against the player. For now, the player is playing against another player.
+What doesn't work yet? As of now, the code only lets the player add to existing sets, not take from them. This means that it can not rearrange existing table tiles, such as reorganizing, but it does let a player add a tile from their hand to an existing set.
 
 
 ## Next Steps
-
-For our next steps, we'll try to implement the computer class to play against the player, which means a new class to test and potentially new helper methods for that class. (we also need to say who's gonna do what after this) 
 
 Some stretch goals we will try to implement from the scope: 
     - keeping track of score and consequences for not being able to complete a turn
@@ -69,6 +67,10 @@ Who does what
 
 | `Tile.java` | Sarah | Wrote the class |
 
+| `Computer.java` | Aaron, Abigel | Wrote the class
+
+
+| `src/test/java/ComputerTest.java` |Enoch| Tests computer finding valid groups and runs|
 
 | `src/test/java/GroupTest.java` | GenAI-assisted; team reviewed | Tests group validity, duplicate colors, joker groups, and scoring. |
 
@@ -80,9 +82,12 @@ Who does what
 
 | `src/test/java/TileTest.java` | GenAI-assisted; team reviewed | Tests tile equality, getters, and display text. |
 
+| `src/test/java/SetTest.java` | GenAI-assisted; team reviewed | Tests that a set of tiles behaves like a container |
+
+
 ### GenAI usage
 
-GenAI assistance was used to adapt `Game.java` for the two-player prototype, help out with play method, and generate JUnit tests. Team members have reviewed and verified AI-assisted changes
+GenAI assistance was used to help out with play method, and generate most of the JUnit tests. Team members have reviewed and verified AI-assisted changes.
 
 ### System Diagram
 https://docs.google.com/document/d/16Dh-sPuOrqSh66Iml23WTMzUySfWBzUC3cahu9CiUUI/edit?usp=sharing
