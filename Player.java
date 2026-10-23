@@ -484,7 +484,6 @@ public class Player
 
         hasInitialMeld = true;
         playedThisTurn = true;
-        System.out.println("Has initial meld: " + hasInitialMeld);
         return true;
     }
 
