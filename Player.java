@@ -157,77 +157,129 @@ public class Player
      */
     private void promptAndPlaySet(Game g, Scanner in)
     {
-        System.out.print("Group or Run? (g/r): ");
-        String type = in.nextLine().trim().toLowerCase();
-        Set s;
-        if (type.equals("g"))
-        {
-            s = new Group();
-        }
-        else if (type.equals("r"))
-        {
-            s = new Run();
-        }
-        else
-        {
-            System.out.println("Invalid type.");
-            return;
-        }
+        LinkedChain<Set> turnSets = new LinkedChain<>();
+        boolean addAnother = true;
 
-        System.out
-            .print("Enter tile positions separated by spaces (e.g. 1 4 7): ");
-        String line = in.nextLine().trim();
-        if (line.isEmpty())
+        // Collect all sets the player wants to play this turn.
+        while (addAnother)
         {
-            System.out.println("No tiles entered.");
-            return;
-        }
-        String[] parts = line.split("\\s+");
-        boolean[] chosen = new boolean[hand.size() + 1];
+            System.out.print("Group or Run? (g/r): ");
+            String type = in.nextLine().trim().toLowerCase();
 
-        try
-        {
-            for (String p : parts)
+            Set s;
+
+            if (type.equals("g"))
             {
-                int pos = Integer.parseInt(p);
-                if (pos < 1 || pos > hand.size())
+                s = new Group();
+            }
+            else if (type.equals("r"))
+            {
+                s = new Run();
+            }
+            else
+            {
+                System.out.println("Invalid type.");
+                return;
+            }
+
+            System.out.print(
+                "Enter tile positions separated by spaces (e.g. 0 3 6): ");
+
+            String line = in.nextLine().trim();
+
+            if (line.isEmpty())
+            {
+                System.out.println("No tiles entered.");
+                return;
+            }
+
+            String[] parts = line.split("\\s+");
+            boolean[] chosen = new boolean[hand.size()];
+
+            try
+            {
+                for (String p : parts)
                 {
-                    System.out.println("Position " + pos + " is out of range.");
-                    return;
+                    int pos = Integer.parseInt(p);
+
+                    if (pos < 0 || pos >= hand.size())
+                    {
+                        System.out
+                            .println("Position " + pos + " is out of range.");
+                        return;
+                    }
+
+                    if (chosen[pos])
+                    {
+                        System.out
+                            .println("Position " + pos + " was entered twice.");
+                        return;
+                    }
+
+                    chosen[pos] = true;
+                    s.addTile(hand.get(pos));
                 }
-                if (chosen[pos])
-                {
-                    System.out
-                        .println("Position " + pos + " was entered twice.");
-                    return;
-                }
-                chosen[pos] = true;
-                s.addTile(hand.get(pos));
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println("Please enter numbers only.");
+                return;
+            }
+
+            // Reject invalid groups or runs before submitting the play.
+            if (!s.isValid())
+            {
+                System.out.println(
+                    "That is not a valid "
+                        + (type.equals("g") ? "group." : "run."));
+                return;
+            }
+
+            turnSets.add(s);
+
+            System.out.println("Set: " + s);
+            System.out.println("Set points: " + s.getPoints());
+
+            System.out.print("Add another set? (y/n): ");
+            String answer = in.nextLine().trim().toLowerCase();
+
+            if (!answer.equals("y"))
+            {
+                addAnother = false;
             }
         }
-        catch (NumberFormatException e)
+
+        // Calculate the combined points for the sets submitted this turn.
+        int totalPoints = 0;
+
+        for (int i = 0; i < turnSets.size(); i++)
         {
-            System.out.println("Please enter numbers only.");
-            return;
+            totalPoints += turnSets.get(i).getPoints();
         }
 
-        if (playSet(s))
+        System.out.println("Total points: " + totalPoints);
+
+        // Submit all sets together. playSets handles validation,
+        // the initial meld requirement, and removing tiles from the hand.
+        if (playSets(turnSets))
         {
-            g.addSetToTable(s);
-            System.out.println("Played: " + s);
+            for (int i = 0; i < turnSets.size(); i++)
+            {
+                g.addSetToTable(turnSets.get(i));
+            }
+
         }
-        else if (!hasInitialMeld && s.isValid()
-            && s.getPoints() < INITIAL_MELD_POINTS)
+        else if (!hasInitialMeld && totalPoints < INITIAL_MELD_POINTS)
         {
             System.out.println(
-                "Your first play must be worth at least " + INITIAL_MELD_POINTS
+                "Your first play must total at least " + INITIAL_MELD_POINTS
                     + " points.");
         }
         else
         {
             System.out.println(
-                "That is not a valid "
-                    + (type.equals("g") ? "group." : "run."));
+                "Could not play these sets. Make sure all tiles "
+                    + "are in your hand and the sets are valid.");
         }
     }
 
@@ -347,7 +399,14 @@ public class Player
                 return false;
             }
             totalPoints += s.getPoints();
+
+            System.out.println("Set: " + s);
+            System.out.println("Set points: " + s.getPoints());
         }
+
+        System.out.println("Total initial meld points: " + totalPoints);
+        System.out.println("Has initial meld: " + hasInitialMeld);
+
         if (!hasInitialMeld && totalPoints < INITIAL_MELD_POINTS)
         {
             return false;
