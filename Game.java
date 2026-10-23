@@ -1,3 +1,4 @@
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -160,8 +161,8 @@ public class Game
 
     // ----------------------------------------------------------
     /**
-     * Main method handling overall gameplay, starting game and taking turns
-     * until one player wins.
+     * Overloaded method for play, uses false as the default parameter for
+     * againstCom
      */
     public void play()
     {
@@ -171,21 +172,18 @@ public class Game
 
     // ----------------------------------------------------------
     /**
-     * Main method handling overall gameplay, for if player is going against
-     * computer.
-     * 
-     * @param againstComputer
-     *            true if player is going against computer
+     * Main method handling overall gameplay, starting game and taking turns
+     * until one player wins.
      */
-    public void play(boolean againstComputer)
+    public void play(boolean againstCom)
     {
-        vsCom = againstComputer;
+        vsCom = againstCom;
         System.out.println("Welcome to Rummikub!");
-        System.out.print("Enter Player 1's name: ");
+        System.out.print("Enter your name: ");
         player1 = new Player(getInput().nextLine());
         if (vsCom)
         {
-            player2 = new Computer(player1.getName() + "'s rival");
+            player2 = new Computer();
         }
         else
         {
@@ -232,16 +230,24 @@ public class Game
      */
     private void takePlayerTurn(Player currentPlayer)
     {
-        if (!vsCom)
+        if (vsCom)
+        {
+            if (currentPlayer == player1)
+            {
+                displayBoard();
+            }
+            currentPlayer.takeTurn(this);
+        }
+        else
         {
             displayBoard();
             System.out.println(
                 "Pass the screen to " + currentPlayer.getName()
                     + ". Press Enter when ready.");
             getInput().nextLine();
+            displayBoard();
+            currentPlayer.takeTurn(this);
         }
-        displayBoard();
-        currentPlayer.takeTurn(this);
     }
 
 

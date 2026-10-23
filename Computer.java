@@ -1,3 +1,4 @@
+
 import java.util.*;
 
 public class Computer
@@ -5,9 +6,9 @@ public class Computer
 {
     private LinkedChain<Set> currMoves = new LinkedChain<Set>();
 
-    public Computer(String name)
+    public Computer()
     {
-        super(name);
+        super("Computer");
     }
 
 
@@ -57,50 +58,88 @@ public class Computer
                     plays.add(set);
                 }
                 complete = true;
-                System.out.println(hand);//start of big debug thingy
-                System.out.print("[");
-                for(boolean dih : used) {
-                    if(dih) {
-                        System.out.print("tru, ");
-                    } else {
-                        System.out.print("fal, ");
-                    }
-                }
-                System.out.println("]");
-                System.out.print("[");
-                for(boolean dih : justUsed) {
-                    if(dih) {
-                        System.out.print("tru, ");
-                    } else {
-                        System.out.print("fal, ");
-                    }
-                }
-                System.out.println("]");
-                System.out.println(set);//end of big debug thingy
             }
             int totalPoints = 0;
             for(int i=0; i < plays.size(); i++) {
-                System.out.println(plays.get(i));//debug thingy
                 totalPoints += plays.get(i).getPoints();
             }
-            if (hasInitialMeld || (totalPoints >= INITIAL_MELD_POINTS))
+            if (!plays.isEmpty()
+                && (hasInitialMeld || totalPoints >= INITIAL_MELD_POINTS)
+                && playSets(plays))
             {
-                for(int i=0; i < plays.size(); i++) {
+                for (int i = 0; i < plays.size(); i++)
+                {
                     g.addSetToTable(plays.get(i));
                 }
-                for(int i = hand.size() - 1; i >= 0; i--) {
-                    if(used[i]) {
-                        hand.remove(hand.get(i));
-                    }
-                }
-                hasInitialMeld = true;
-                playedThisTurn = true;
             }
         }
         endTurn(g);
         currMoves.clear();
         sortHand();
         System.out.println(name + " has " + hand.size() + " tiles.");
+    }
+
+
+    public boolean canPlay()
+    {
+        currMoves.clear();
+        findMoves();
+
+        Set[] moves = currMoves.toArray(new Set[currMoves.size()]);
+        Arrays.sort(moves, Comparator.comparingInt(Set::getPoints).reversed());
+
+        boolean[] used = new boolean[hand.size()];
+        int totalPoints = 0;
+        boolean foundPlay = false;
+
+        for (Set set : moves)
+        {
+            boolean[] justUsed = new boolean[hand.size()];
+            boolean complete = true;
+
+            for (int j = 0; j < set.size(); j++)
+            {
+                Tile needed = set.get(j);
+                boolean found = false;
+
+                for (int i = 0; i < hand.size(); i++)
+                {
+                    if (!used[i] && needed.equals(hand.get(i)))
+                    {
+                        used[i] = true;
+                        justUsed[i] = true;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    complete = false;
+                    break;
+                }
+            }
+
+            if (complete)
+            {
+                foundPlay = true;
+                totalPoints += set.getPoints();
+            }
+            else
+            {
+                for (int i = 0; i < used.length; i++)
+                {
+                    if (justUsed[i])
+                    {
+                        used[i] = false;
+                    }
+                }
+            }
+        }
+
+        currMoves.clear();
+        return foundPlay
+            && (hasInitialMeld || totalPoints >= INITIAL_MELD_POINTS);
     }
 
 
