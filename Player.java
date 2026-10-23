@@ -199,7 +199,6 @@ public class Player
 
             try
             {
-                System.out.println(parts);
                 for (String p : parts)
                 {
                     int pos = Integer.parseInt(p);
