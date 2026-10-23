@@ -441,7 +441,6 @@ public class Player
         }
 
         System.out.println("Total initial meld points: " + totalPoints);
-        System.out.println("Has initial meld: " + hasInitialMeld);
 
         if (!hasInitialMeld && totalPoints < INITIAL_MELD_POINTS)
         {
@@ -485,6 +484,7 @@ public class Player
 
         hasInitialMeld = true;
         playedThisTurn = true;
+        System.out.println("Has initial meld: " + hasInitialMeld);
         return true;
     }
 
