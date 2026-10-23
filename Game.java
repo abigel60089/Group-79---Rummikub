@@ -8,6 +8,7 @@ public class Game
     private Player player1;
     private Player player2;
     private Scanner scanner;
+    private boolean vsCom = false;
 
     public Game()
     {
@@ -101,13 +102,22 @@ public class Game
         return scanner;
     }
 
-    public void play()
+    public void play() {
+        play(false);
+    }
+    
+    public void play(boolean againstComputer)
     {
+        vsCom = againstComputer;
         System.out.println("Welcome to Rummikub!");
         System.out.print("Enter Player 1's name: ");
         player1 = new Player(getInput().nextLine());
-        System.out.print("Enter Player 2's name: ");
-        player2 = new Player(getInput().nextLine());
+        if(vsCom) {
+            player2 = new Computer(player1.getName() + "'s rival");
+        } else {
+            System.out.print("Enter Player 2's name: ");
+            player2 = new Player(getInput().nextLine());
+        }
         dealHands();
 
         while (true)
@@ -144,10 +154,17 @@ public class Game
 
     private void takePlayerTurn(Player currentPlayer)
     {
-        System.out.println("Pass the screen to " + currentPlayer.getName() + ". Press Enter when ready.");
-        getInput().nextLine();
-        displayBoard();
-        currentPlayer.takeTurn(this);
+        if(vsCom) {
+            if(currentPlayer == player1) {
+                displayBoard();
+            }
+            currentPlayer.takeTurn(this);
+        } else {
+            System.out.println("Pass the screen to " + currentPlayer.getName() + ". Press Enter when ready.");
+            getInput().nextLine();
+            displayBoard();
+            currentPlayer.takeTurn(this);
+        }
     }
 
     private void announceWinner()

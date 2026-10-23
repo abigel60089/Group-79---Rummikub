@@ -21,15 +21,59 @@ public class Computer
         findMoves();
         if (!currMoves.isEmpty())
         {
+            LinkedChain<Set> plays = new LinkedChain<Set>();
             Set[] moves = currMoves.toArray(new Set[currMoves.size()]);
             Arrays.sort(moves, Comparator.comparingInt(Set::getPoints));
-            if (hasInitialMeld)
-            {
-                // still working on this
+            Tile[] handArray = hand.toArray(new Tile[hand.size()]);
+            boolean[] used = new boolean[hand.size()];
+            Tile needed = null;
+            boolean[] justUsed;
+            boolean wasFound = false;
+            boolean complete = true;
+            for(Set set : moves) {
+                justUsed = new boolean[hand.size()];
+                for(int j=0; j < set.size(); j++) {
+                    needed = set.get(j);
+                    for(int i=0; i < hand.size(); i++) {
+                        if (!used[i] && needed.equals(handArray[i]))
+                        {
+                            used[i] = true;
+                            justUsed[i] = true;
+                            wasFound = true;
+                            break;
+                        }
+                    }
+                    if(!wasFound) {
+                        for(int i=0; i < hand.size(); i++) {
+                            if(justUsed[i]) {
+                                used[i] = false;
+                            }
+                        }
+                        complete = false;
+                        break;
+                    }
+                }
+                if(complete) {
+                    plays.add(set);
+                }
+                complete = true;
             }
-            else
+            int totalPoints = 0;
+            for(int i=0; i < plays.size(); i++) {
+                totalPoints += plays.get(i).getPoints();
+            }
+            if (hasInitialMeld || (totalPoints >= INITIAL_MELD_POINTS))
             {
-                // still working on this
+                for(int i=0; i < plays.size(); i++) {
+                    g.addSetToTable(plays.get(i));
+                }
+                for(int i = hand.size() - 1; i >= 0; i--) {
+                    if(used[i]) {
+                        hand.remove(hand.get(i));
+                    }
+                }
+                hasInitialMeld = true;
+                playedThisTurn = true;
             }
         }
         endTurn(g);
