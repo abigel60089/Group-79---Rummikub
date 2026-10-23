@@ -199,29 +199,27 @@ public class Player
 
             try
             {
+                System.out.println(parts);
                 for (String p : parts)
                 {
                     int pos = Integer.parseInt(p);
 
-                    if (pos < 0 || pos > hand.size())
+                    if (pos < 0 || pos >= hand.size())
                     {
-                        if (pos < 0 || pos >= hand.size())
-                        {
-                            System.out.println(
-                                "Position " + pos + " is out of range.");
-                            return;
-                        }
-
-                        if (chosen[pos])
-                        {
-                            System.out.println(
-                                "Position " + pos + " was entered twice.");
-                            return;
-                        }
-
-                        chosen[pos] = true;
-                        s.addTile(hand.get(pos));
+                        System.out
+                            .println("Position " + pos + " is out of range.");
+                        return;
                     }
+
+                    if (chosen[pos])
+                    {
+                        System.out
+                            .println("Position " + pos + " was entered twice.");
+                        return;
+                    }
+
+                    chosen[pos] = true;
+                    s.addTile(hand.get(pos));
                 }
             }
             catch (NumberFormatException e)
