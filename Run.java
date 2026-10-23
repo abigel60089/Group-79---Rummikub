@@ -137,7 +137,9 @@ public class Run extends Set
             return 0;
         }
         int first = tiles.get(position).getNumber() - position;
-        return tiles.size() * (2 * first + tiles.size() - 1) / 2;
+        int last = first + tiles.size() - 1;
+        float sum = (tiles.size() / (float)2) * (first + last);
+        return Math.round(sum);
     }
 
 
@@ -160,4 +162,4 @@ public class Run extends Set
         return t.getNumber() == start - 1;
     }
 
-} // end of isValid method
+}

@@ -23,7 +23,6 @@ public class GroupTest
     public void testDuplicateColorOrDifferentNumber()
     {
         assertTrue(group.addTile(new Tile(8, "red")));
-
         assertFalse(group.addTile(new Tile(8, "red")));
         assertFalse(group.addTile(new Tile(9, "blue")));
         assertEquals(1, group.size());
@@ -40,5 +39,31 @@ public class GroupTest
 
         assertTrue(group.isValid());
         assertEquals(40, group.getPoints());
+    }
+
+
+    public void testEmpty()
+    {
+        assertEquals(0, group.getPoints());
+    }
+
+
+    public void testAllJokers()
+    {
+        group.addTile(new Tile(14, "red"));
+        group.addTile(new Tile(14, "red"));
+        group.addTile(new Tile(14, "red"));
+        assertFalse(group.isValid());
+        assertEquals(0, group.getPoints());
+    }
+
+
+    public void testMiddleJoker()
+    {
+        group.addTile(new Tile(1, "black"));
+        group.addTile(new Tile(14, "red"));
+        group.addTile(new Tile(1, "red"));
+        assertTrue(group.canAdd(new Tile(14, "red")));
+        assertTrue(group.isValid());
     }
 }

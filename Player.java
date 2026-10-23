@@ -190,7 +190,7 @@ public class Player
             for (String p : parts)
             {
                 int pos = Integer.parseInt(p);
-                if (pos < 1 || pos > hand.size())
+                if (pos < 0 || pos > hand.size())
                 {
                     System.out.println("Position " + pos + " is out of range.");
                     return;
