@@ -538,10 +538,7 @@ public class Player
         Set updated = original.copy();
         
 
-        updated.addTile(tile);
-        
-
-        if (!updated.isValid())
+        if (!updated.addTile(tile))
         {
             System.out.println("That tile cannot be added to this set.");
             return false;
